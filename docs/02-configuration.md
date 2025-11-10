@@ -222,6 +222,6 @@ $qrCode = Cache::remember('qrcode:' . md5($data), 3600, function () use ($data) 
 
 ## Next Steps
 
-- [Quick Start](quick-start.md) - Get started quickly
-- [Basic Usage](basic-usage.md) - Learn the fundamentals
-- [Customization](customization.md) - Advanced customization options
+- [Quick Start](03-quick-start.md) - Get started quickly
+- [Basic Usage](04-basic-usage.md) - Learn the fundamentals
+- [Customization](06-customization.md) - Advanced customization options

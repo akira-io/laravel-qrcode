@@ -658,6 +658,6 @@ class GenerateProductQrCodesCommand extends Command
 
 ## Next Steps
 
-- [Testing](testing.md) - Testing strategies
-- [API Reference](api-reference.md) - Complete method reference
-- [Advanced Features](advanced-features.md) - Complex integrations
+- [Testing](11-testing.md) - Testing strategies
+- [API Reference](10-api-reference.md) - Complete method reference
+- [Advanced Features](07-advanced-features.md) - Complex integrations

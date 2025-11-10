@@ -403,11 +403,11 @@ Results are cacheable and thread-safe.
 3. Create DataType implementing `QrCodeDataTypeContract`
 4. Use with QrCode
 
-See [Advanced Features](advanced-features.md) for detailed examples.
+See [Advanced Features](07-advanced-features.md) for detailed examples.
 
 ## Next Steps
 
-- [Basic Usage](basic-usage.md) - Learn how to use the package
-- [Data Types](data-types.md) - Explore built-in data types
-- [Advanced Features](advanced-features.md) - Create custom types
-- [Testing](testing.md) - Testing strategies
+- [Basic Usage](04-basic-usage.md) - Learn how to use the package
+- [Data Types](05-data-types.md) - Explore built-in data types
+- [Advanced Features](07-advanced-features.md) - Create custom types
+- [Testing](11-testing.md) - Testing strategies

@@ -162,6 +162,6 @@ composer require akira/laravel-qrcode --with-all-dependencies
 
 ## Next Steps
 
-- [Configuration](configuration.md) - Detailed configuration options
-- [Quick Start](quick-start.md) - Get started quickly
-- [Basic Usage](basic-usage.md) - Learn the fundamentals
+- [Configuration](02-configuration.md) - Detailed configuration options
+- [Quick Start](03-quick-start.md) - Get started quickly
+- [Basic Usage](04-basic-usage.md) - Learn the fundamentals

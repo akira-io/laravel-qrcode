@@ -615,7 +615,7 @@ try {
 
 ## Creating Custom Data Types
 
-See [Advanced Features](advanced-features.md) for detailed guide on creating custom data types.
+See [Advanced Features](07-advanced-features.md) for detailed guide on creating custom data types.
 
 ## Data Type Format Specifications
 
@@ -660,6 +660,6 @@ bitcoin:<address>?amount=<amount>&label=<label>&message=<message>
 
 ## Next Steps
 
-- [Customization](customization.md) - Style your QR codes
-- [Advanced Features](advanced-features.md) - Create custom data types
-- [Examples](examples.md) - Real-world usage examples
+- [Customization](06-customization.md) - Style your QR codes
+- [Advanced Features](07-advanced-features.md) - Create custom data types
+- [Examples](08-examples.md) - Real-world usage examples

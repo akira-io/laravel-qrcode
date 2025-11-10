@@ -676,6 +676,6 @@ try {
 
 ## Next Steps
 
-- [Examples](examples.md) - See these methods in action
-- [Testing](testing.md) - Testing strategies
-- [Advanced Features](advanced-features.md) - Complex usage
+- [Examples](08-examples.md) - See these methods in action
+- [Testing](11-testing.md) - Testing strategies
+- [Advanced Features](07-advanced-features.md) - Complex usage

@@ -528,6 +528,6 @@ For responsive QR codes in web pages:
 
 ## Next Steps
 
-- [Advanced Features](advanced-features.md) - Image merging and custom types
-- [Examples](examples.md) - Real-world customization examples
-- [API Reference](api-reference.md) - Complete method reference
+- [Advanced Features](07-advanced-features.md) - Image merging and custom types
+- [Examples](08-examples.md) - Real-world customization examples
+- [API Reference](10-api-reference.md) - Complete method reference

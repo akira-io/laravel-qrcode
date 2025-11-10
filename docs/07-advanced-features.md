@@ -715,6 +715,6 @@ public function streamQrCode(Request $request): StreamedResponse
 
 ## Next Steps
 
-- [Examples](examples.md) - Real-world usage examples
-- [Testing](testing.md) - Testing strategies
-- [API Reference](api-reference.md) - Complete method reference
+- [Examples](08-examples.md) - Real-world usage examples
+- [Testing](11-testing.md) - Testing strategies
+- [API Reference](10-api-reference.md) - Complete method reference

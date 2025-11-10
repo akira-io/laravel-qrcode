@@ -4,18 +4,25 @@ A modern, type-safe QR Code generator for Laravel built with the Action Pattern,
 
 ## Table of Contents
 
-- [Installation](installation.md)
-- [Configuration](configuration.md)
-- [Quick Start](quick-start.md)
-- [Architecture](architecture.md)
-- [Basic Usage](basic-usage.md)
-- [Data Types](data-types.md)
-- [Customization](customization.md)
-- [Advanced Features](advanced-features.md)
-- [API Reference](api-reference.md)
-- [Examples](examples.md)
-- [Testing](testing.md)
-- [Contributing](contributing.md)
+### Getting Started
+1. [Installation](01-installation.md)
+2. [Configuration](02-configuration.md)
+3. [Quick Start](03-quick-start.md)
+
+### Usage
+4. [Basic Usage](04-basic-usage.md)
+5. [Data Types](05-data-types.md)
+6. [Customization](06-customization.md)
+7. [Advanced Features](07-advanced-features.md)
+
+### Examples & Reference
+8. [Examples](08-examples.md)
+9. [Architecture](09-architecture.md)
+10. [API Reference](10-api-reference.md)
+11. [Testing](11-testing.md)
+
+### Contributing
+12. [Contributing](12-contributing.md)
 
 ## Overview
 
@@ -50,25 +57,24 @@ This package provides a comprehensive QR code generation solution for Laravel ap
 use Akira\QrCode\Facades\QrCode;
 
 // Simple text QR code
-$qrCode = QrCode::generate('Hello, World!');
+$qrCode = QrCode::text('Hello, World!');
 
 // With customization
 $qrCode = QrCode::size(300)
     ->color(255, 0, 0)
-    ->generate('https://example.com');
+    ->text('https://example.com');
 
-// Using Value Objects
-use Akira\QrCode\ValueObjects\WiFiData;
-use Akira\QrCode\DataTypes\WiFiDataType;
+// WiFi QR Code
+$qrCode = QrCode::wifi([
+    'ssid' => 'MyNetwork',
+    'password' => 'secret123'
+]);
 
-$wifiData = WiFiData::create(
-    ssid: 'MyNetwork',
-    password: 'secret123',
-    encryption: 'WPA'
-);
+// Email QR Code
+$qrCode = QrCode::email('contact@example.com', 'Subject', 'Body');
 
-$dataType = WiFiDataType::fromValueObject($wifiData);
-$qrCode = QrCode::generate((string) $dataType);
+// Phone QR Code
+$qrCode = QrCode::phone('+1234567890');
 ```
 
 ## Support

@@ -565,7 +565,7 @@ QrCode::size(350)
 
 ## Next Steps
 
-- [Data Types](data-types.md) - Learn about specialized QR code types
-- [Customization](customization.md) - Advanced styling options
-- [Examples](examples.md) - Real-world usage examples
-- [API Reference](api-reference.md) - Complete method reference
+- [Data Types](05-data-types.md) - Learn about specialized QR code types
+- [Customization](06-customization.md) - Advanced styling options
+- [Examples](08-examples.md) - Real-world usage examples
+- [API Reference](10-api-reference.md) - Complete method reference
