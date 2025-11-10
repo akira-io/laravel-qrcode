@@ -20,13 +20,13 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Illuminate\Support\HtmlString|string|null generate(string $text, ?string $filename = null)
  * @method static \Illuminate\Support\HtmlString|string|null text(string $text)
  * @method static \Illuminate\Support\HtmlString|string|null email(string $address, ?string $subject = null, ?string $body = null, ?string $cc = null, ?string $bcc = null)
- * @method static \Illuminate\Support\HtmlString|string|null wifi(array $config)
+ * @method static \Illuminate\Support\HtmlString|string|null wifi(array<string, mixed> $config)
  * @method static \Illuminate\Support\HtmlString|string|null sms(string $phoneNumber, ?string $message = null)
  * @method static \Illuminate\Support\HtmlString|string|null phone(string $phoneNumber)
  * @method static \Illuminate\Support\HtmlString|string|null phoneNumber(string $phoneNumber)
  * @method static \Illuminate\Support\HtmlString|string|null geo(float $latitude, float $longitude, ?string $name = null)
- * @method static \Illuminate\Support\HtmlString|string|null bitcoin(string $address, float $amount = 0.0, array $options = [])
- * @method static \Illuminate\Support\HtmlString|string|null btc(string $address, float $amount = 0.0, array $options = [])
+ * @method static \Illuminate\Support\HtmlString|string|null bitcoin(string $address, float $amount = 0.0, array<string, mixed> $options = [])
+ * @method static \Illuminate\Support\HtmlString|string|null btc(string $address, float $amount = 0.0, array<string, mixed> $options = [])
  *
  * @see \Akira\QrCode\QrCode
  */
@@ -35,7 +35,7 @@ class QrCode extends Facade
     /**
      * Get the registered name of the component.
      */
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         self::clearResolvedInstance(Generator::class);
 

@@ -10,9 +10,7 @@ class Image
 
     public function __construct(string $image)
     {
-        set_error_handler(null);
-        $img = imagecreatefromstring($image);
-        restore_error_handler();
+        $img = @imagecreatefromstring($image);
 
         if ($img === false) {
             throw new \InvalidArgumentException('Invalid image data provided to Image.');

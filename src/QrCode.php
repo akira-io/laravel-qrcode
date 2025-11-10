@@ -37,13 +37,13 @@ use InvalidArgumentException;
 /**
  * @method $this text(string $text)
  * @method $this email(string $address, ?string $subject = null, ?string $body = null, ?string $cc = null, ?string $bcc = null)
- * @method $this wifi(array $config)
+ * @method $this wifi(array<string, mixed> $config)
  * @method $this sms(string $phoneNumber, ?string $message = null)
  * @method $this phone(string $phoneNumber)
  * @method $this phoneNumber(string $phoneNumber)
  * @method $this geo(float $latitude, float $longitude, ?string $name = null)
- * @method $this bitcoin(string $address, float $amount = 0.0, array $options = [])
- * @method $this btc(string $address, float $amount = 0.0, array $options = [])
+ * @method $this bitcoin(string $address, float $amount = 0.0, array<string, mixed> $options = [])
+ * @method $this btc(string $address, float $amount = 0.0, array<string, mixed> $options = [])
  */
 class QrCode
 {
