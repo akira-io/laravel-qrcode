@@ -1,11 +1,15 @@
-# Laravel QR Code Generator
+<div align="center">
+
+![img.png](docs/assets/banner.png)
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/akira/laravel-qrcode.svg?style=flat-square)](https://packagist.org/packages/akira/laravel-qrcode)
 [![Tests](https://img.shields.io/github/actions/workflow/status/akira/laravel-qrcode/tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/akira/laravel-qrcode/actions/workflows/tests.yml)
 [![PHPStan](https://img.shields.io/github/actions/workflow/status/akira/laravel-qrcode/phpstan.yml?branch=main&label=phpstan&style=flat-square)](https://github.com/akira/laravel-qrcode/actions/workflows/phpstan.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/akira/laravel-qrcode.svg?style=flat-square)](https://packagist.org/packages/akira/laravel-qrcode)
-
+</div>
 A clean, modern, and easy-to-use QR code generator for Laravel applications. Built with the Action Pattern, Value Objects, and full type safety.
+
+
 
 ## Features
 
