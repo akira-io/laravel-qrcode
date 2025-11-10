@@ -18,7 +18,6 @@ final readonly class PhoneNumberDataType implements QrCodeDataTypeContract
         return app(self::class, ['phoneNumber' => $phoneNumber]);
     }
 
-
     public function __toString(): string
     {
         return $this->action->handle($this->phoneNumber);

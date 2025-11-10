@@ -15,7 +15,7 @@ final readonly class WiFiDataType implements QrCodeDataTypeContract
 
     public static function fromValueObject(WiFiData $data): self
     {
-        return app(self::class, ["data" => $data]);
+        return app(self::class, ['data' => $data]);
     }
 
     public function __toString(): string

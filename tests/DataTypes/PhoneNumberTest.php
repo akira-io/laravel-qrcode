@@ -6,7 +6,7 @@ use Akira\QrCode\ValueObjects\PhoneNumber;
 it('should generate a valid phone number QR code', function () {
     $phoneNumber = PhoneNumber::fromString('+1234567890');
     $dataType = PhoneNumberDataType::fromValueObject($phoneNumber);
-    
+
     expect((string) $dataType)->toBe('tel:+1234567890');
 });
 

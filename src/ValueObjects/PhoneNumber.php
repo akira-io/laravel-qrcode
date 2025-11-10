@@ -13,7 +13,7 @@ final readonly class PhoneNumber
             throw new InvalidArgumentException('Phone number cannot be empty');
         }
 
-        if (!preg_match('/^[\d\s\+\-\(\)]+$/', $number)) {
+        if (! preg_match('/^[\d\s\+\-\(\)]+$/', $number)) {
             throw new InvalidArgumentException("Invalid phone number format: {$number}");
         }
     }

@@ -10,6 +10,7 @@ class CreateBTCQrCodeAction
     public function handle(BitcoinData $data): string
     {
         $dataType = BitcoinDataType::fromValueObject($data);
+
         return (string) $dataType;
     }
 }

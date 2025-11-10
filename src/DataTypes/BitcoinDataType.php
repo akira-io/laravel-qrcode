@@ -15,9 +15,8 @@ final readonly class BitcoinDataType implements QrCodeDataTypeContract
 
     public static function fromValueObject(BitcoinData $data): self
     {
-        return app(self::class, ["data" => $data]);
+        return app(self::class, ['data' => $data]);
     }
-
 
     public function __toString(): string
     {

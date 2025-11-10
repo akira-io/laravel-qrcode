@@ -10,6 +10,7 @@ class CreateWiFiQrCodeAction
     public function handle(WiFiData $data): string
     {
         $dataType = WiFiDataType::fromValueObject($data);
+
         return (string) $dataType;
     }
 }

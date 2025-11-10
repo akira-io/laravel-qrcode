@@ -6,14 +6,14 @@ use Akira\QrCode\ValueObjects\GeoLocation;
 it('should generate a valid geo QR code with name', function () {
     $location = GeoLocation::create(40.7128, -74.0060, 'New York');
     $dataType = GeoDataType::fromValueObject($location);
-    
+
     expect((string) $dataType)->toBe('geo:40.7128,-74.006?name=New+York');
 });
 
 it('should generate a valid geo QR code without name', function () {
     $location = GeoLocation::create(40.7128, -74.0060);
     $dataType = GeoDataType::fromValueObject($location);
-    
+
     expect((string) $dataType)->toBe('geo:40.7128,-74.006');
 });
 

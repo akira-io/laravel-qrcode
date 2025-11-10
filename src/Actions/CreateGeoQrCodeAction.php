@@ -10,6 +10,7 @@ class CreateGeoQrCodeAction
     public function handle(GeoLocation $location): string
     {
         $dataType = GeoDataType::fromValueObject($location);
+
         return (string) $dataType;
     }
 }

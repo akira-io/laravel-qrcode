@@ -15,9 +15,8 @@ final readonly class SMSDataType implements QrCodeDataTypeContract
 
     public static function fromValueObject(SMSData $data): self
     {
-        return app(self::class, ["data" => $data]);
+        return app(self::class, ['data' => $data]);
     }
-
 
     public function __toString(): string
     {

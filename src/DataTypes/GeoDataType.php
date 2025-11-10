@@ -18,7 +18,6 @@ final readonly class GeoDataType implements QrCodeDataTypeContract
         return app(self::class, ['location' => $location]);
     }
 
-
     public function __toString(): string
     {
         return $this->action->handle($this->location);

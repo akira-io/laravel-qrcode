@@ -1,5 +1,6 @@
 <?php
 
+use Akira\QrCode\QrCode;
 use BaconQrCode\Renderer\Eye\SimpleCircleEye;
 use BaconQrCode\Renderer\Eye\SquareEye;
 use BaconQrCode\Renderer\Image\EpsImageBackEnd;
@@ -12,7 +13,6 @@ use BaconQrCode\Renderer\RendererStyle\Gradient;
 use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 use DASPRiD\Enum\Exception\IllegalArgumentException;
 use Illuminate\Support\HtmlString;
-use Akira\QrCode\QrCode;
 
 test('chaining is working', function () {
     expect((app(QrCode::class))->size(100))->toBeInstanceOf(QrCode::class);

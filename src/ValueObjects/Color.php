@@ -15,7 +15,7 @@ final readonly class Color
         $this->validateColorValue($red, 'red');
         $this->validateColorValue($green, 'green');
         $this->validateColorValue($blue, 'blue');
-        
+
         if ($alpha !== null) {
             $this->validateAlphaValue($alpha);
         }

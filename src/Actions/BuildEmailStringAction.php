@@ -18,9 +18,9 @@ class BuildEmailStringAction
         ]);
 
         if (empty($params)) {
-            return self::PREFIX . $data->address;
+            return self::PREFIX.$data->address;
         }
 
-        return self::PREFIX . $data->address . '?' . http_build_query($params);
+        return self::PREFIX.$data->address.'?'.http_build_query($params);
     }
 }

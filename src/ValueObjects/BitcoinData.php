@@ -42,6 +42,6 @@ final readonly class BitcoinData
             'label' => $this->label,
             'message' => $this->message,
             'r' => $this->returnAddress,
-        ], fn($value) => $value !== null);
+        ], fn ($value) => $value !== null);
     }
 }

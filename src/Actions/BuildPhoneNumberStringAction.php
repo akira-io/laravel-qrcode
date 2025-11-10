@@ -10,6 +10,6 @@ class BuildPhoneNumberStringAction
 
     public function handle(PhoneNumber $phoneNumber): string
     {
-        return self::PREFIX . $phoneNumber->number;
+        return self::PREFIX.$phoneNumber->number;
     }
 }

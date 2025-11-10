@@ -10,11 +10,11 @@ class BuildGeoStringAction
 
     public function handle(GeoLocation $location): string
     {
-        $geo = self::PREFIX . $location->latitude . ',' . $location->longitude;
+        $geo = self::PREFIX.$location->latitude.','.$location->longitude;
 
         if ($location->hasName()) {
             $query = http_build_query(['name' => $location->name]);
-            $geo .= '?' . $query;
+            $geo .= '?'.$query;
         }
 
         return $geo;

@@ -10,6 +10,7 @@ class CreateEmailQrCodeAction
     public function handle(EmailData $data): string
     {
         $dataType = EmailDataType::fromValueObject($data);
+
         return (string) $dataType;
     }
 }

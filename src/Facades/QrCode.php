@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Akira\QrCode\Facades;
 
-use Illuminate\Support\Facades\Facade;
 use Akira\QrCode\QrCode as Generator;
+use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static \Akira\QrCode\QrCode size(int $size)

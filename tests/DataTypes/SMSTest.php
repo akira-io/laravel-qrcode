@@ -6,14 +6,14 @@ use Akira\QrCode\ValueObjects\SMSData;
 it('should generate a valid SMS QR code', function () {
     $smsData = SMSData::create('555-555-5555');
     $dataType = SMSDataType::fromValueObject($smsData);
-    
+
     expect((string) $dataType)->toBe('SMSTO:555-555-5555');
 });
 
 it('should generate a valid SMS QR code with message', function () {
     $smsData = SMSData::create('555-555-5555', 'message');
     $dataType = SMSDataType::fromValueObject($smsData);
-    
+
     expect((string) $dataType)->toBe('SMSTO:555-555-5555:message');
 });
 

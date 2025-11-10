@@ -14,7 +14,7 @@ final readonly class SMSData
             throw new InvalidArgumentException('Phone number cannot be empty');
         }
 
-        if (!preg_match('/^[\d\s\+\-\(\)]+$/', $phoneNumber)) {
+        if (! preg_match('/^[\d\s\+\-\(\)]+$/', $phoneNumber)) {
             throw new InvalidArgumentException("Invalid phone number format: {$phoneNumber}");
         }
     }

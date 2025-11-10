@@ -10,6 +10,7 @@ class CreatePhoneNumberQrCodeAction
     public function handle(PhoneNumber $phoneNumber): string
     {
         $dataType = PhoneNumberDataType::fromValueObject($phoneNumber);
+
         return (string) $dataType;
     }
 }

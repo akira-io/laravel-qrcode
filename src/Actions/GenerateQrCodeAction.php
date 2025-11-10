@@ -28,13 +28,15 @@ class GenerateQrCodeAction
 
         if ($filename) {
             file_put_contents($filename, $qrCode);
+
             return null;
         }
 
         // Convert PNG to base64 data URL for HTML display
         if ($format === 'png' && class_exists(HtmlString::class)) {
             $base64 = base64_encode($qrCode);
-            return new HtmlString('<img src="data:image/png;base64,' . $base64 . '" alt="QR Code">');
+
+            return new HtmlString('<img src="data:image/png;base64,'.$base64.'" alt="QR Code">');
         }
 
         if (class_exists(HtmlString::class)) {
