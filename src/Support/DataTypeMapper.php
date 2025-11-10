@@ -25,6 +25,7 @@ class DataTypeMapper
     public static function createFromMethod(string $method, array $arguments): string
     {
         return match (strtolower($method)) {
+            'text' => self::createText($arguments),
             'email' => self::createEmail($arguments),
             'wifi' => self::createWiFi($arguments),
             'sms' => self::createSMS($arguments),
@@ -33,6 +34,16 @@ class DataTypeMapper
             'phonenumber', 'phone' => self::createPhoneNumber($arguments),
             default => throw new BadMethodCallException("Method {$method} not found"),
         };
+    }
+
+    /**
+     * @param  array<int, mixed>  $arguments
+     */
+    private static function createText(array $arguments): string
+    {
+        $text = $arguments[0] ?? '';
+
+        return is_string($text) ? $text : '';
     }
 
     /**
