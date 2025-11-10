@@ -1,0 +1,71 @@
+{
+    "name": "akira/laravel-qrcode",
+    "description": "A clean, modern, and easy-to-use QR code generator for Laravel",
+    "keywords": ["laravel", "qrcode", "bacon", "qr", "generator", "akira"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kidiatoliny",
+            "email": "kidiatoliny@gmail.com",
+            "homepage": "https://github.com/kidiatoliny"
+        }
+    ],
+    "require": {
+        "php": "^8.4",
+        "ext-gd": "*",
+        "bacon/bacon-qr-code": "^3.0",
+        "illuminate/contracts": "^12.0",
+        "illuminate/support": "^12.0"
+    },
+    "require-dev": {
+        "akira/laravel-debugger": "^1.0",
+        "laravel/pint": "^1.0",
+        "nunomaduro/collision": "^8.0",
+        "orchestra/testbench": "^10.0",
+        "pestphp/pest": "^4.0",
+        "pestphp/pest-plugin-laravel": "4.0",
+        "phpstan/phpstan": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Akira\\QrCode\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/pest",
+        "test-coverage": "XDEBUG_MODE=coverage vendor/bin/pest --coverage",
+        "lint": "vendor/bin/pint",
+        "analyse": "vendor/bin/phpstan analyse",
+        "post-autoload-dump": [
+            "@php ./vendor/bin/testbench package:discover --ansi"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Akira\\QrCode\\QrCodeServiceProvider"
+            ],
+            "aliases": {
+                "QrCode": "Akira\\QrCode\\Facades\\QrCode"
+            }
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
