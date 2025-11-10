@@ -8,8 +8,8 @@ class QrCodeServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->bind('qrcode', function () {
-            return new QrCode;
+        $this->app->bind('qrcode', function ($app) {
+            return $app->make(QrCode::class);
         });
     }
 

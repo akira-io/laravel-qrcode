@@ -128,7 +128,7 @@ class QrCode
 
     /**
      * @param  array<int, mixed>  $arguments
-     * @return HtmlString|string
+     * @return HtmlString|string|null
      */
     public function __call(string $method, array $arguments)
     {

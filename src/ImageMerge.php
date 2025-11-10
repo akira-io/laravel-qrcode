@@ -38,7 +38,9 @@ class ImageMerge
     {
         $this->setProperties($percentage);
 
-        $img = imagecreatetruecolor($this->sourceImage->getWidth(), $this->sourceImage->getHeight());
+        $width = max(1, $this->sourceImage->getWidth());
+        $height = max(1, $this->sourceImage->getHeight());
+        $img = imagecreatetruecolor($width, $height);
         imagealphablending($img, true);
         $transparent = imagecolorallocatealpha($img, 0, 0, 0, 127) ?: 1;
         imagefill($img, 0, 0, $transparent);

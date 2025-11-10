@@ -32,6 +32,9 @@ final readonly class BitcoinData
         return new self($address, $amount, $label, $message, $returnAddress);
     }
 
+    /**
+     * @return array<string, float|string>
+     */
     public function toArray(): array
     {
         return array_filter([

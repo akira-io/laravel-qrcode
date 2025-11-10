@@ -2,24 +2,25 @@
 
 namespace Akira\QrCode\Support;
 
-use Akira\QrCode\DataTypes\EmailDataType;
-use Akira\QrCode\DataTypes\WiFiDataType;
-use Akira\QrCode\DataTypes\SMSDataType;
 use Akira\QrCode\DataTypes\BitcoinDataType;
+use Akira\QrCode\DataTypes\EmailDataType;
 use Akira\QrCode\DataTypes\GeoDataType;
 use Akira\QrCode\DataTypes\PhoneNumberDataType;
-use Akira\QrCode\ValueObjects\EmailData;
-use Akira\QrCode\ValueObjects\WiFiData;
-use Akira\QrCode\ValueObjects\SMSData;
+use Akira\QrCode\DataTypes\SMSDataType;
+use Akira\QrCode\DataTypes\WiFiDataType;
 use Akira\QrCode\ValueObjects\BitcoinData;
+use Akira\QrCode\ValueObjects\EmailData;
 use Akira\QrCode\ValueObjects\GeoLocation;
 use Akira\QrCode\ValueObjects\PhoneNumber;
+use Akira\QrCode\ValueObjects\SMSData;
+use Akira\QrCode\ValueObjects\WiFiData;
 use BadMethodCallException;
+use Illuminate\Support\Fluent;
 
 class DataTypeMapper
 {
     /**
-     * @param array<int, mixed> $arguments
+     * @param  array<int, mixed>  $arguments
      */
     public static function createFromMethod(string $method, array $arguments): string
     {
@@ -35,92 +36,128 @@ class DataTypeMapper
     }
 
     /**
-     * @param array<int, mixed> $arguments
+     * @param  array<int, mixed>  $arguments
      */
     private static function createEmail(array $arguments): string
     {
+        [$address, $subject, $body, $cc, $bcc] = array_pad($arguments, 5, null);
+
         $emailData = EmailData::create(
-            address: $arguments[0] ?? '',
-            subject: $arguments[1] ?? null,
-            body: $arguments[2] ?? null,
-            cc: $arguments[3] ?? null,
-            bcc: $arguments[4] ?? null
+            address: self::stringOrEmpty($address),
+            subject: self::stringOrNull($subject),
+            body: self::stringOrNull($body),
+            cc: self::stringOrNull($cc),
+            bcc: self::stringOrNull($bcc),
         );
 
-        return EmailDataType::fromValueObject($emailData)->toString();
+        return (string) EmailDataType::fromValueObject($emailData);
+    }
+
+    private static function stringOrEmpty(mixed $value): string
+    {
+        return is_string($value) ? $value : '';
+    }
+
+    private static function stringOrNull(mixed $value): ?string
+    {
+        return is_string($value) ? $value : null;
     }
 
     /**
-     * @param array<int, mixed> $arguments
+     * @param  array<int, mixed>  $arguments
      */
     private static function createWiFi(array $arguments): string
     {
-        if (!isset($arguments[0]) || !is_array($arguments[0])) {
-            throw new \InvalidArgumentException('WiFi requires an array argument');
+        $data = $arguments[0] ?? null;
+
+        if (! is_array($data)) {
+            throw new \InvalidArgumentException('WiFi requires an array argument.');
         }
 
-        $data = $arguments[0];
+        $ssid = $data['ssid'] ?? '';
+        $password = $data['password'] ?? null;
+        $hidden = $data['hidden'] ?? false;
+
         $wifiData = WiFiData::create(
-            ssid: $data['ssid'] ?? '',
-            password: $data['password'] ?? null,
-            hidden: $data['hidden'] ?? false
+            ssid: is_string($ssid) ? $ssid : '',
+            password: is_string($password) ? $password : null,
+            hidden: is_bool($hidden) ? $hidden : false,
         );
 
-        return WiFiDataType::fromValueObject($wifiData)->toString();
+        return (string) WiFiDataType::fromValueObject($wifiData);
     }
 
     /**
-     * @param array<int, mixed> $arguments
+     * @param  array<int, mixed>  $arguments
      */
     private static function createSMS(array $arguments): string
     {
+        $args = new Fluent($arguments);
+        $phoneNumber = $args->get(0, '');
+        $message = $args->get(1);
+
         $smsData = SMSData::create(
-            phoneNumber: $arguments[0] ?? '',
-            message: $arguments[1] ?? null
+            phoneNumber: is_string($phoneNumber) ? $phoneNumber : '',
+            message: is_string($message) ? $message : null
         );
 
-        return SMSDataType::fromValueObject($smsData)->toString();
+        return (string) SMSDataType::fromValueObject($smsData);
     }
 
     /**
-     * @param array<int, mixed> $arguments
+     * @param  array<int, mixed>  $arguments
      */
     private static function createBitcoin(array $arguments): string
     {
-        $options = $arguments[2] ?? [];
+        $args = new Fluent($arguments);
+        $optionsData = $args->get(2, []);
+        $options = new Fluent(is_array($optionsData) ? $optionsData : []);
+
+        $address = $args->get(0, '');
+        $amount = $args->get(1, 0.0);
+        $label = $options->get('label');
+        $message = $options->get('message');
+        $returnAddress = $options->get('returnAddress');
 
         $bitcoinData = BitcoinData::create(
-            address: $arguments[0] ?? '',
-            amount: (float)($arguments[1] ?? 0),
-            label: $options['label'] ?? null,
-            message: $options['message'] ?? null,
-            returnAddress: $options['returnAddress'] ?? null
+            address: is_string($address) ? $address : '',
+            amount: is_numeric($amount) ? (float) $amount : 0.0,
+            label: is_string($label) ? $label : null,
+            message: is_string($message) ? $message : null,
+            returnAddress: is_string($returnAddress) ? $returnAddress : null
         );
 
-        return BitcoinDataType::fromValueObject($bitcoinData)->toString();
+        return (string) BitcoinDataType::fromValueObject($bitcoinData);
     }
 
     /**
-     * @param array<int, mixed> $arguments
+     * @param  array<int, mixed>  $arguments
      */
     private static function createGeo(array $arguments): string
     {
+        $args = new Fluent($arguments);
+        $latitude = $args->get(0, 0.0);
+        $longitude = $args->get(1, 0.0);
+        $name = $args->get(2);
+
         $geoLocation = GeoLocation::create(
-            latitude: (float)($arguments[0] ?? 0),
-            longitude: (float)($arguments[1] ?? 0),
-            name: $arguments[2] ?? null
+            latitude: is_numeric($latitude) ? (float) $latitude : 0.0,
+            longitude: is_numeric($longitude) ? (float) $longitude : 0.0,
+            name: is_string($name) ? $name : null
         );
 
-        return GeoDataType::fromValueObject($geoLocation)->toString();
+        return (string) GeoDataType::fromValueObject($geoLocation);
     }
 
     /**
-     * @param array<int, mixed> $arguments
+     * @param  array<int, mixed>  $arguments
      */
     private static function createPhoneNumber(array $arguments): string
     {
-        $phoneNumber = PhoneNumber::fromString($arguments[0] ?? '');
+        $args = new Fluent($arguments);
+        $phoneNumberStr = $args->get(0, '');
+        $phoneNumber = PhoneNumber::fromString(is_string($phoneNumberStr) ? $phoneNumberStr : '');
 
-        return PhoneNumberDataType::fromValueObject($phoneNumber)->toString();
+        return (string) PhoneNumberDataType::fromValueObject($phoneNumber);
     }
 }

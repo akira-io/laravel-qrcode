@@ -23,9 +23,7 @@ class Image
 
     public function __destruct()
     {
-        if (isset($this->image)) {
-            imagedestroy($this->image);
-        }
+        imagedestroy($this->image);
     }
 
     public function getWidth(): int
@@ -45,10 +43,7 @@ class Image
 
     public function setImageResource(GdImage $image): void
     {
-        if (isset($this->image)) {
-            imagedestroy($this->image);
-        }
-
+        imagedestroy($this->image);
         $this->image = $image;
     }
 }
