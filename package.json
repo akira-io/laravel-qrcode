@@ -1,0 +1,33 @@
+{
+  "name": "@akira/laravel-qrcode",
+  "version": "1.0.0",
+  "description": "A clean, modern, and easy-to-use QR code generator for Laravel",
+  "keywords": [
+    "laravel",
+    "qrcode",
+    "bacon",
+    "qr",
+    "generator",
+    "akira"
+  ],
+  "homepage": "https://github.com/akira-io/laravel-qrcode",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/akira-io/laravel-qrcode.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Kidiatoliny",
+    "email": "kidiatoliny@gmail.com",
+    "url": "https://github.com/kidiatoliny"
+  },
+  "scripts": {
+    "release": "release-it",
+    "release:patch": "release-it patch",
+    "release:minor": "release-it minor",
+    "release:major": "release-it major"
+  },
+  "devDependencies": {
+    "release-it": "^17.0.0"
+  }
+}

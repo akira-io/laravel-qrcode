@@ -1,0 +1,38 @@
+{
+  "git": {
+    "commitMessage": "chore: release v${version}",
+    "tagAnnotation": "Release v${version}",
+    "tagName": "v${version}",
+    "push": true,
+    "requireCleanWorkingDir": true,
+    "requireUpstream": true,
+    "requireCommits": false,
+    "addUntrackedFiles": false
+  },
+  "github": {
+    "release": true,
+    "releaseName": "v${version}",
+    "releaseNotes": null,
+    "autoGenerate": true,
+    "draft": false,
+    "preRelease": false,
+    "tokenRef": "GITHUB_TOKEN"
+  },
+  "npm": {
+    "publish": false
+  },
+  "hooks": {
+    "before:init": [
+      "composer validate --strict",
+      "composer test",
+      "composer analyse"
+    ],
+    "after:bump": [],
+    "after:release": [
+      "echo Successfully released v${version}"
+    ]
+  },
+  "plugins": {
+    "./.release-it-composer.js": {}
+  }
+}
