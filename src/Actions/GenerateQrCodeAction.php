@@ -31,6 +31,12 @@ class GenerateQrCodeAction
             return null;
         }
 
+        // Convert PNG to base64 data URL for HTML display
+        if ($format === 'png' && class_exists(HtmlString::class)) {
+            $base64 = base64_encode($qrCode);
+            return new HtmlString('<img src="data:image/png;base64,' . $base64 . '" alt="QR Code">');
+        }
+
         if (class_exists(HtmlString::class)) {
             return new HtmlString($qrCode);
         }
