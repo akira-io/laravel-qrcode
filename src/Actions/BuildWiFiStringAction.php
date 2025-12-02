@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Akira\QrCode\Actions;
 
 use Akira\QrCode\ValueObjects\WiFiData;
 
-class BuildWiFiStringAction
+final class BuildWiFiStringAction
 {
     private const string PREFIX = 'WIFI:';
 
@@ -18,7 +20,7 @@ class BuildWiFiStringAction
             $wifi .= 'T:WPA'.self::SEPARATOR;
         }
 
-        if (! empty($data->ssid)) {
+        if ($data->ssid !== '' && $data->ssid !== '0') {
             $wifi .= 'S:'.$data->ssid.self::SEPARATOR;
         }
 

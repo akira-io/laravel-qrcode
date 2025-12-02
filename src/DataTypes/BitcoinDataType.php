@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Akira\QrCode\DataTypes;
 
 use Akira\QrCode\Actions\BuildBitcoinStringAction;
@@ -13,13 +15,13 @@ final readonly class BitcoinDataType implements QrCodeDataTypeContract
         private BuildBitcoinStringAction $action
     ) {}
 
-    public static function fromValueObject(BitcoinData $data): self
-    {
-        return app(self::class, ['data' => $data]);
-    }
-
     public function __toString(): string
     {
         return $this->action->handle($this->data);
+    }
+
+    public static function fromValueObject(BitcoinData $data): self
+    {
+        return resolve(self::class, ['data' => $data]);
     }
 }

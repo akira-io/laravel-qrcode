@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Akira\QrCode\QrCodeServiceProvider;
 use Tests\TestCase;
 
-beforeEach(function () {
+beforeEach(function (): void {
     app()->register(QrCodeServiceProvider::class);
 });
 
@@ -19,7 +19,7 @@ beforeEach(function () {
 */
 
 uses(TestCase::class)
-    ->beforeEach(function () {
+    ->beforeEach(function (): void {
         // Additional setup for each test if needed
     })
     ->in(__DIR__);
@@ -35,9 +35,7 @@ uses(TestCase::class)
 |
 */
 
-expect()->extend('toBeOne', function () {
-    return $this->toBe(1);
-});
+expect()->extend('toBeOne', fn () => $this->toBe(1));
 
 /*
 |--------------------------------------------------------------------------
@@ -50,7 +48,7 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function something(): void
 {
     // ..
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Akira\QrCode\DataTypes;
 
 use Akira\QrCode\Actions\BuildPhoneNumberStringAction;
@@ -13,13 +15,13 @@ final readonly class PhoneNumberDataType implements QrCodeDataTypeContract
         private BuildPhoneNumberStringAction $action
     ) {}
 
-    public static function fromValueObject(PhoneNumber $phoneNumber): self
-    {
-        return app(self::class, ['phoneNumber' => $phoneNumber]);
-    }
-
     public function __toString(): string
     {
         return $this->action->handle($this->phoneNumber);
+    }
+
+    public static function fromValueObject(PhoneNumber $phoneNumber): self
+    {
+        return resolve(self::class, ['phoneNumber' => $phoneNumber]);
     }
 }

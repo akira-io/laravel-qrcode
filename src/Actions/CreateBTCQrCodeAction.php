@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Akira\QrCode\Actions;
 
 use Akira\QrCode\DataTypes\BitcoinDataType;
 use Akira\QrCode\ValueObjects\BitcoinData;
 
-class CreateBTCQrCodeAction
+final class CreateBTCQrCodeAction
 {
     public function handle(BitcoinData $data): string
     {

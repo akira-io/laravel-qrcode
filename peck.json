@@ -1,0 +1,25 @@
+{
+    "preset": "laravel",
+    "ignore": {
+        "words": [
+            "php",
+            "qrcode",
+            "commitlint",
+            "pnpm",
+            "btc",
+            "akira",
+            "filepath",
+            "outter",
+            "renderer",
+            "jis",
+            "utf",
+            "gbk",
+            "euc",
+            "rgb",
+            "rgba",
+            "bcc",
+            "ssid"
+        ],
+        "paths": []
+    }
+}

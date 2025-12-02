@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Akira\QrCode\Facades\QrCode as QrCodeFacade;
 use Akira\QrCode\QrCode;
 use Illuminate\Support\HtmlString;
@@ -11,7 +13,7 @@ if (! function_exists('qrcode')) {
     function qrcode(?string $text = null): mixed
     {
         if ($text === null) {
-            return app(QrCode::class);
+            return resolve(QrCode::class);
         }
 
         return QrCodeFacade::generate($text);

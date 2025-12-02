@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Akira\QrCode\Actions;
 
 use Akira\QrCode\DataTypes\GeoDataType;
 use Akira\QrCode\ValueObjects\GeoLocation;
 
-class CreateGeoQrCodeAction
+final class CreateGeoQrCodeAction
 {
     public function handle(GeoLocation $location): string
     {

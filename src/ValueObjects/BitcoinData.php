@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Akira\QrCode\ValueObjects;
 
 use InvalidArgumentException;
@@ -13,13 +15,9 @@ final readonly class BitcoinData
         public ?string $message = null,
         public ?string $returnAddress = null
     ) {
-        if (empty($address)) {
-            throw new InvalidArgumentException('Bitcoin address cannot be empty');
-        }
+        throw_if($address === '' || $address === '0', InvalidArgumentException::class, 'Bitcoin address cannot be empty');
 
-        if ($amount <= 0) {
-            throw new InvalidArgumentException('Bitcoin amount must be greater than 0');
-        }
+        throw_if($amount <= 0, InvalidArgumentException::class, 'Bitcoin amount must be greater than 0');
     }
 
     public static function create(
@@ -42,6 +40,6 @@ final readonly class BitcoinData
             'label' => $this->label,
             'message' => $this->message,
             'r' => $this->returnAddress,
-        ], fn ($value) => $value !== null);
+        ], fn (float|string|null $value): bool => $value !== null);
     }
 }

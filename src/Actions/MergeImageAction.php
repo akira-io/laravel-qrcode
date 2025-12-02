@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Akira\QrCode\Actions;
 
 use Akira\QrCode\ValueObjects\ImageMergeConfig;
 
-class MergeImageAction
+final class MergeImageAction
 {
     public function handle(ImageMergeConfig $config): ?string
     {

@@ -4,15 +4,25 @@
 # Ignore all test and documentation files in archives
 /.github            export-ignore
 /.idea              export-ignore
+/.vscode            export-ignore
 /build              export-ignore
 /docs               export-ignore
 /tests              export-ignore
+/.release-it.json   export-ignore
+/.DS_Store          export-ignore
 /.editorconfig      export-ignore
 /.gitattributes     export-ignore
 /.gitignore         export-ignore
 /phpstan.neon       export-ignore
 /phpunit.xml        export-ignore
 /pint.json          export-ignore
+/rector.php         export-ignore
+/peck.json          export-ignore
+/package.json       export-ignore
+/pnpm-lock.yaml     export-ignore
+/composer.lock      export-ignore
+/node_modules       export-ignore
+/vendor             export-ignore
 /CHANGELOG.md       export-ignore
 /README.md          export-ignore
 
@@ -39,8 +49,14 @@
 *.zip binary
 *.tar binary
 *.gz binary
+*.webp binary
+*.ttf binary
+*.otf binary
+*.woff binary
+*.woff2 binary
 
 # Diff
 *.lock -diff
 *.min.js -diff
 *.min.css -diff
+*.map -diff

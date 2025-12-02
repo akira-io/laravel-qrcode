@@ -1,16 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Akira\QrCode;
 
 use Illuminate\Support\ServiceProvider;
+use Orchestra\Testbench\Foundation\Application;
 
-class QrCodeServiceProvider extends ServiceProvider
+final class QrCodeServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->bind('qrcode', function ($app) {
-            return $app->make(QrCode::class);
-        });
+        $this->app->bind('qrcode', fn (Application $app) => $app->make(QrCode::class));
     }
 
     /**

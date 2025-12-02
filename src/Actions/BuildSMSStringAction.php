@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Akira\QrCode\Actions;
 
 use Akira\QrCode\ValueObjects\SMSData;
 
-class BuildSMSStringAction
+final class BuildSMSStringAction
 {
-    private const PREFIX = 'SMSTO:';
+    private const string PREFIX = 'SMSTO:';
 
-    private const SEPARATOR = ':';
+    private const string SEPARATOR = ':';
 
     public function handle(SMSData $data): string
     {

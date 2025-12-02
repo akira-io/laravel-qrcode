@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Akira\QrCode\Actions;
 
 use Akira\QrCode\DataTypes\SMSDataType;
 use Akira\QrCode\ValueObjects\SMSData;
 
-class CreateSMSQrCodeAction
+final class CreateSMSQrCodeAction
 {
     public function handle(SMSData $data): string
     {

@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Akira\QrCode\Actions;
 
 use Akira\QrCode\ValueObjects\BitcoinData;
 
-class BuildBitcoinStringAction
+final class BuildBitcoinStringAction
 {
-    private const PREFIX = 'bitcoin:';
+    private const string PREFIX = 'bitcoin:';
 
     public function handle(BitcoinData $data): string
     {

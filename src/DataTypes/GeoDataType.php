@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Akira\QrCode\DataTypes;
 
 use Akira\QrCode\Actions\BuildGeoStringAction;
@@ -13,13 +15,13 @@ final readonly class GeoDataType implements QrCodeDataTypeContract
         private BuildGeoStringAction $action
     ) {}
 
-    public static function fromValueObject(GeoLocation $location): self
-    {
-        return app(self::class, ['location' => $location]);
-    }
-
     public function __toString(): string
     {
         return $this->action->handle($this->location);
+    }
+
+    public static function fromValueObject(GeoLocation $location): self
+    {
+        return resolve(self::class, ['location' => $location]);
     }
 }

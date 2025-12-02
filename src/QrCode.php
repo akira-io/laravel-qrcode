@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Akira\QrCode;
 
 use Akira\QrCode\Actions\CreateColorAction;
@@ -45,28 +47,22 @@ use InvalidArgumentException;
  * @method $this bitcoin(string $address, float $amount = 0.0, array<string, mixed> $options = [])
  * @method $this btc(string $address, float $amount = 0.0, array<string, mixed> $options = [])
  */
-class QrCode
+final class QrCode
 {
-    public function __construct(
-        protected GenerateQrCodeAction $generateAction,
-        protected CreateColorAction $colorAction,
-        protected MergeImageAction $mergeImageAction
-    ) {}
-
     /**
      * The output format.
      */
-    protected string $format = 'svg';
+    private string $format = 'svg';
 
     /**
      * The size of the QR code in pixels.
      */
-    protected int $size = 100;
+    private int $size = 100;
 
     /**
      * The margin around the QR code.
      */
-    protected int $margin = 0;
+    private int $margin = 0;
 
     /**
      * The error correction level.
@@ -75,7 +71,7 @@ class QrCode
      * Q: 25% loss.
      * H: 30% loss.
      */
-    protected ?ErrorCorrectionLevel $errorCorrection = null;
+    private ?ErrorCorrectionLevel $errorCorrection = null;
 
     /**
      * The encoding mode. Possible values are
@@ -85,57 +81,63 @@ class QrCode
      * SHIFT-JIS, WINDOWS-1250, WINDOWS-1251, WINDOWS-1252, WINDOWS-1256,
      * UTF-16BE, UTF-8, ASCII, GBK, EUC-KR.
      */
-    protected string $encoding = Encoder::DEFAULT_BYTE_MODE_ECODING;
+    private string $encoding = Encoder::DEFAULT_BYTE_MODE_ECODING;
 
     /**
      * The style of the blocks within the QrCode.
      * Possible values are 'square', 'dot' and 'round'.
      */
-    protected string $style = 'square';
+    private string $style = 'square';
 
     /**
      * The size of the selected style between 0 and 1.
      * Only applicable to 'dot' and 'round' styles.
      */
-    protected float $styleSize = 0.5;
+    private float $styleSize = 0.5;
 
     /**
      * The style to apply to the eyes of the QR code.
      * Possible values are circle and square.
      */
-    protected ?string $eyeStyle = null;
+    private ?string $eyeStyle = null;
 
     /**
      * The foreground color of the QR code.
      */
-    protected ?ColorInterface $color = null;
+    private ?ColorInterface $color = null;
 
     /**
      * The background color of the QR code.
      */
-    protected ?ColorInterface $backgroundColor = null;
+    private ?ColorInterface $backgroundColor = null;
 
     /**
      * An array that holds EyeFills of the color of the eyes.
      *
      * @var array<int, EyeFill>
      */
-    protected array $eyeColors = [];
+    private array $eyeColors = [];
 
     /**
      * The gradient to apply to the QrCode.
      */
-    protected ?Gradient $gradient = null;
+    private ?Gradient $gradient = null;
 
     /**
      * Holds an image string that will be merged with the QrCode.
      */
-    protected ?string $imageMerge = null;
+    private ?string $imageMerge = null;
 
     /**
      * The percentage that a merged image should take over the source image.
      */
-    protected float $imagePercentage = 0.2;
+    private float $imagePercentage = 0.2;
+
+    public function __construct(
+        private readonly GenerateQrCodeAction $generateAction,
+        private readonly CreateColorAction $colorAction,
+        private readonly MergeImageAction $mergeImageAction
+    ) {}
 
     /**
      * @param  array<int, mixed>  $arguments
@@ -188,9 +190,7 @@ class QrCode
 
     public function format(string $format): self
     {
-        if (! in_array($format, ['svg', 'eps', 'png'])) {
-            throw new InvalidArgumentException("\$format must be svg, eps, or png. {$format} is not a valid.");
-        }
+        throw_unless(in_array($format, ['svg', 'eps', 'png']), InvalidArgumentException::class, "\$format must be svg, eps, or png. {$format} is not a valid.");
 
         $this->format = $format;
 
@@ -215,9 +215,7 @@ class QrCode
 
     public function eyeColor(int $eyeNumber, int $innerRed, int $innerGreen, int $innerBlue, int $outterRed = 0, int $outterGreen = 0, int $outterBlue = 0): self
     {
-        if ($eyeNumber < 0 || $eyeNumber > 2) {
-            throw new InvalidArgumentException("\$eyeNumber must be 0, 1, or 2.  {$eyeNumber} is not valid.");
-        }
+        throw_if($eyeNumber < 0 || $eyeNumber > 2, InvalidArgumentException::class, "\$eyeNumber must be 0, 1, or 2.  {$eyeNumber} is not valid.");
 
         $innerColor = new Color($innerRed, $innerGreen, $innerBlue);
         $outterColor = new Color($outterRed, $outterGreen, $outterBlue);
@@ -232,7 +230,7 @@ class QrCode
 
     public function gradient(int $startRed, int $startGreen, int $startBlue, int $endRed, int $endGreen, int $endBlue, string $type): self
     {
-        $type = strtoupper($type);
+        $type = mb_strtoupper($type);
 
         $startColor = new Color($startRed, $startGreen, $startBlue);
         $endColor = new Color($endRed, $endGreen, $endBlue);
@@ -248,9 +246,7 @@ class QrCode
 
     public function eye(string $style): self
     {
-        if (! in_array($style, ['square', 'circle'])) {
-            throw new InvalidArgumentException("\$style must be square or circle. {$style} is not a valid eye style.");
-        }
+        throw_unless(in_array($style, ['square', 'circle']), InvalidArgumentException::class, "\$style must be square or circle. {$style} is not a valid eye style.");
 
         $this->eyeStyle = $style;
 
@@ -259,13 +255,9 @@ class QrCode
 
     public function style(string $style, float $size = 0.5): self
     {
-        if (! in_array($style, ['square', 'dot', 'round'])) {
-            throw new InvalidArgumentException("\$style must be square, dot, or round. {$style} is not a valid.");
-        }
+        throw_unless(in_array($style, ['square', 'dot', 'round']), InvalidArgumentException::class, "\$style must be square, dot, or round. {$style} is not a valid.");
 
-        if ($size < 0 || $size >= 1) {
-            throw new InvalidArgumentException("\$size must be between 0 and 1.  {$size} is not valid.");
-        }
+        throw_if($size < 0 || $size >= 1, InvalidArgumentException::class, "\$size must be between 0 and 1.  {$size} is not valid.");
 
         $this->style = $style;
         $this->styleSize = $size;
@@ -275,14 +267,14 @@ class QrCode
 
     public function encoding(string $encoding): self
     {
-        $this->encoding = strtoupper($encoding);
+        $this->encoding = mb_strtoupper($encoding);
 
         return $this;
     }
 
     public function errorCorrection(string $errorCorrection): self
     {
-        $errorCorrection = strtoupper($errorCorrection);
+        $errorCorrection = mb_strtoupper($errorCorrection);
         $this->errorCorrection = ErrorCorrectionLevel::$errorCorrection();
 
         return $this;
@@ -361,7 +353,7 @@ class QrCode
         $eye1 = $this->eyeColors[1] ?? EyeFill::inherit();
         $eye2 = $this->eyeColors[2] ?? EyeFill::inherit();
 
-        if ($this->gradient) {
+        if ($this->gradient instanceof Gradient) {
             return Fill::withForegroundGradient($backgroundColor, $this->gradient, $eye0, $eye1, $eye2);
         }
 

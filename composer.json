@@ -25,7 +25,11 @@
         "orchestra/testbench": "^10.0",
         "pestphp/pest": "^4.0",
         "pestphp/pest-plugin-laravel": "4.0",
-        "phpstan/phpstan": "^2.0"
+        "phpstan/phpstan": "^2.0",
+        "rector/rector": "^2.0",
+        "driftingly/rector-laravel": "^2.1",
+        "peckphp/peck": "^0.1.3",
+        "pestphp/pest-plugin-type-coverage": "^4.0"
     },
     "autoload": {
         "psr-4": {
@@ -41,10 +45,24 @@
         }
     },
     "scripts": {
-        "test": "vendor/bin/pest",
-        "test-coverage": "XDEBUG_MODE=coverage vendor/bin/pest --coverage",
-        "lint": "vendor/bin/pint",
-        "analyse": "vendor/bin/phpstan analyse",
+        "lint": "pint",
+        "refactor": "rector",
+        "test:lint": "pint --test",
+        "test:refactor": "rector --dry-run",
+        "test:arch": "pest --filter=arch",
+        "test:types": "phpstan",
+        "test:type-coverage": "pest --type-coverage --min=100 --compact",
+        "test:coverage": "pest --parallel --coverage --compact --exactly=65.0",
+        "test:typos": "peck",
+        "test": [
+            "@test:lint",
+            "@test:refactor",
+            "@test:typos",
+            "@test:arch",
+            "@test:types",
+            "@test:coverage",
+            "@test:type-coverage"
+        ],
         "post-autoload-dump": [
             "@php ./vendor/bin/testbench package:discover --ansi"
         ]

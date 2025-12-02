@@ -1,20 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Akira\QrCode;
 
 use GdImage;
+use InvalidArgumentException;
 
-class Image
+final class Image
 {
-    protected GdImage $image;
+    private GdImage $image;
 
     public function __construct(string $image)
     {
         $img = @imagecreatefromstring($image);
 
-        if ($img === false) {
-            throw new \InvalidArgumentException('Invalid image data provided to Image.');
-        }
+        throw_if($img === false, InvalidArgumentException::class, 'Invalid image data provided to Image.');
 
         $this->image = $img;
     }

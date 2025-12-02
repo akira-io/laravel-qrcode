@@ -1,46 +1,36 @@
 name: Tests
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ 1.x ]
+  pull_request:
+    branches: [ 1.x ]
 
 jobs:
-  tests:
+  test:
     runs-on: ubuntu-latest
-    
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
-        php: [8.4]
-        laravel: [12.*]
-        dependency-version: [prefer-stable]
-        
-    name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} - ${{ matrix.dependency-version }}
+        php: [ 8.4, 8.5 ]
+        laravel: [ 12.* ]
+
+    name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
-          coverage: pcov
-
-      - name: Setup problem matchers
-        run: |
-          echo "::add-matcher::${{ runner.tool_cache }}/php.json"
-          echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+          coverage: xdebug
+          tools: composer:v2
 
       - name: Install dependencies
-        run: |
-          composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
-          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
+        run: composer install --prefer-dist --no-progress --no-interaction
 
-      - name: List Installed Dependencies
-        run: composer show -D
-
-      - name: Execute tests
-        run: vendor/bin/pest
-
-      - name: Execute type checking
-        run: vendor/bin/phpstan analyse --memory-limit=2G
+      - name: Run tests (Pest)
+        run: composer test

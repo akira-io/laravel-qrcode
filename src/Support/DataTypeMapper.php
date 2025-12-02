@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Akira\QrCode\Support;
 
 use Akira\QrCode\DataTypes\BitcoinDataType;
@@ -16,15 +18,16 @@ use Akira\QrCode\ValueObjects\SMSData;
 use Akira\QrCode\ValueObjects\WiFiData;
 use BadMethodCallException;
 use Illuminate\Support\Fluent;
+use InvalidArgumentException;
 
-class DataTypeMapper
+final class DataTypeMapper
 {
     /**
      * @param  array<int, mixed>  $arguments
      */
     public static function createFromMethod(string $method, array $arguments): string
     {
-        return match (strtolower($method)) {
+        return match (mb_strtolower($method)) {
             'text' => self::createText($arguments),
             'email' => self::createEmail($arguments),
             'wifi' => self::createWiFi($arguments),
@@ -81,9 +84,7 @@ class DataTypeMapper
     {
         $data = $arguments[0] ?? null;
 
-        if (! is_array($data)) {
-            throw new \InvalidArgumentException('WiFi requires an array argument.');
-        }
+        throw_unless(is_array($data), InvalidArgumentException::class, 'WiFi requires an array argument.');
 
         $ssid = $data['ssid'] ?? '';
         $password = $data['password'] ?? null;
@@ -92,7 +93,7 @@ class DataTypeMapper
         $wifiData = WiFiData::create(
             ssid: is_string($ssid) ? $ssid : '',
             password: is_string($password) ? $password : null,
-            hidden: is_bool($hidden) ? $hidden : false,
+            hidden: is_bool($hidden) && $hidden,
         );
 
         return (string) WiFiDataType::fromValueObject($wifiData);

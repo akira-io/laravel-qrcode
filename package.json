@@ -28,6 +28,10 @@
     "release:major": "release-it major"
   },
   "devDependencies": {
-    "release-it": "^17.0.0"
+    "release-it": "^17.0.0",
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "@release-it/conventional-changelog": "^8.0.1",
+    "release-it": "^17.0.3"
   }
 }

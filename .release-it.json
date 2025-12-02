@@ -1,38 +1,63 @@
 {
   "git": {
+    "requireBranch": "1.x",
     "commitMessage": "chore: release v${version}",
-    "tagAnnotation": "Release v${version}",
-    "tagName": "v${version}",
-    "push": true,
-    "requireCleanWorkingDir": true,
-    "requireUpstream": true,
     "requireCommits": false,
-    "addUntrackedFiles": false
+    "changelog": true,
+    "tag": true,
+    "push": true,
+    "pushArgs": "--follow-tags"
   },
+  "npm": false,
   "github": {
     "release": true,
     "releaseName": "v${version}",
-    "releaseNotes": null,
-    "autoGenerate": true,
+    "web": true,
     "draft": false,
     "preRelease": false,
-    "tokenRef": "GITHUB_TOKEN"
-  },
-  "npm": {
-    "publish": false
+    "skipChecks": true
   },
   "hooks": {
     "before:init": [
-      "composer validate --strict",
-      "composer test",
-      "composer analyse"
+      "composer test"
     ],
-    "after:bump": [],
-    "after:release": [
-      "echo Successfully released v${version}"
-    ]
+    "after:release": "echo Successfully released v${version}"
   },
   "plugins": {
-    "./.release-it-composer.js": {}
+    "@release-it/conventional-changelog": {
+      "infile": "CHANGELOG.md",
+      "header": "# Changelog\n\nAll notable changes to this project will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n",
+      "preset": "angular",
+      "types": {
+        "feat": {
+          "section": "Features"
+        },
+        "fix": {
+          "section": "Bug Fixes"
+        },
+        "perf": {
+          "section": "Performance"
+        },
+        "docs": {
+          "section": "Documentation",
+          "hidden": true
+        },
+        "style": {
+          "section": "Styling",
+          "hidden": true
+        },
+        "refactor": {
+          "section": "Code Refactoring"
+        },
+        "test": {
+          "section": "Tests",
+          "hidden": true
+        },
+        "chore": {
+          "section": "Build & CI/CD",
+          "hidden": true
+        }
+      }
+    }
   }
 }

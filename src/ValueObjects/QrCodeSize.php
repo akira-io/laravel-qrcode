@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Akira\QrCode\ValueObjects;
 
 use InvalidArgumentException;
@@ -9,9 +11,7 @@ final readonly class QrCodeSize
     public function __construct(
         public int $value
     ) {
-        if ($value <= 0) {
-            throw new InvalidArgumentException('QR Code size must be greater than 0');
-        }
+        throw_if($value <= 0, InvalidArgumentException::class, 'QR Code size must be greater than 0');
     }
 
     public static function fromInt(int $size): self

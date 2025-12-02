@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 use Akira\QrCode\Image;
 use Akira\QrCode\ImageMerge;
 
-it('can merge 2 images into one and center them', function () {
+it('can merge 2 images into one and center them', function (): void {
     $src_image = imagecreatefrompng(__DIR__.'/images/akira.png');
     $dst_image = imagecreatefrompng(__DIR__.'/images/300X200.png');
 
@@ -39,7 +41,7 @@ it('can merge 2 images into one and center them', function () {
     unlink(__DIR__.'/images/compareImage2.png');
 });
 
-it('throw exception if percentage is greater than 1', function () {
+it('throw exception if percentage is greater than 1', function (): void {
     $source = new Image(file_get_contents(__DIR__.'/images/akira.png'));
     $merge = new Image(file_get_contents(__DIR__.'/images/300X200.png'));
 

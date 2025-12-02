@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Akira\QrCode\Actions;
 
 use Akira\QrCode\ValueObjects\Color;
@@ -7,7 +9,7 @@ use BaconQrCode\Renderer\Color\Alpha;
 use BaconQrCode\Renderer\Color\ColorInterface;
 use BaconQrCode\Renderer\Color\Rgb;
 
-class CreateColorAction
+final class CreateColorAction
 {
     public function handle(Color $color): ColorInterface
     {

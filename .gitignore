@@ -1,3 +1,51 @@
-vendor
-build
-/.idea/
+# Laravel Package Development
+/vendor/
+/node_modules/
+composer.lock
+package-lock.json
+
+# IDE
+/.idea
+/.vscode
+*.swp
+*.swo
+*~
+.DS_Store
+
+# PHPUnit / Pest
+.phpunit.result.cache
+phpunit.xml
+.pest
+.temp/
+
+# PHPStan
+/build/
+phpstan.neon
+
+# Pint
+.php-cs-fixer.cache
+
+# Rector
+/rector-cache/
+
+# Testing
+/coverage/
+/tests/_output/
+*.log
+
+# Environment
+.env
+.env.backup
+.env.testing
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+
+# OS
+Thumbs.db
+.DS_Store
+/.phpunit.cache/test-results

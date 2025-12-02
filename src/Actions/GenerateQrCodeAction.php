@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Akira\QrCode\Actions;
 
 use Akira\QrCode\Image;
@@ -7,7 +9,7 @@ use Akira\QrCode\ImageMerge;
 use BaconQrCode\Writer;
 use Illuminate\Support\HtmlString;
 
-class GenerateQrCodeAction
+final class GenerateQrCodeAction
 {
     public function handle(
         string $text,

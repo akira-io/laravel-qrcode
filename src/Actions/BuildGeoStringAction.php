@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Akira\QrCode\Actions;
 
 use Akira\QrCode\ValueObjects\GeoLocation;
 
-class BuildGeoStringAction
+final class BuildGeoStringAction
 {
-    private const PREFIX = 'geo:';
+    private const string PREFIX = 'geo:';
 
     public function handle(GeoLocation $location): string
     {

@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Akira\QrCode\Actions;
 
 use Akira\QrCode\ValueObjects\PhoneNumber;
 
-class BuildPhoneNumberStringAction
+final class BuildPhoneNumberStringAction
 {
-    private const PREFIX = 'tel:';
+    private const string PREFIX = 'tel:';
 
     public function handle(PhoneNumber $phoneNumber): string
     {

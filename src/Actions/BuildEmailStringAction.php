@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Akira\QrCode\Actions;
 
 use Akira\QrCode\ValueObjects\EmailData;
 
-class BuildEmailStringAction
+final class BuildEmailStringAction
 {
-    private const PREFIX = 'mailto:';
+    private const string PREFIX = 'mailto:';
 
     public function handle(EmailData $data): string
     {
@@ -17,7 +19,7 @@ class BuildEmailStringAction
             'bcc' => $data->bcc,
         ]);
 
-        if (empty($params)) {
+        if ($params === []) {
             return self::PREFIX.$data->address;
         }
 

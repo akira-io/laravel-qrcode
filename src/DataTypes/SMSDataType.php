@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Akira\QrCode\DataTypes;
 
 use Akira\QrCode\Actions\BuildSMSStringAction;
@@ -13,13 +15,13 @@ final readonly class SMSDataType implements QrCodeDataTypeContract
         private BuildSMSStringAction $action
     ) {}
 
-    public static function fromValueObject(SMSData $data): self
-    {
-        return app(self::class, ['data' => $data]);
-    }
-
     public function __toString(): string
     {
         return $this->action->handle($this->data);
+    }
+
+    public static function fromValueObject(SMSData $data): self
+    {
+        return resolve(self::class, ['data' => $data]);
     }
 }

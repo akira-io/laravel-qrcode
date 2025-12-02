@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Akira\QrCode\ValueObjects;
 
 use InvalidArgumentException;
@@ -10,13 +12,9 @@ final readonly class SMSData
         public string $phoneNumber,
         public ?string $message = null
     ) {
-        if (empty($phoneNumber)) {
-            throw new InvalidArgumentException('Phone number cannot be empty');
-        }
+        throw_if($phoneNumber === '' || $phoneNumber === '0', InvalidArgumentException::class, 'Phone number cannot be empty');
 
-        if (! preg_match('/^[\d\s\+\-\(\)]+$/', $phoneNumber)) {
-            throw new InvalidArgumentException("Invalid phone number format: {$phoneNumber}");
-        }
+        throw_unless(preg_match('/^[\d\s\+\-\(\)]+$/', $phoneNumber), InvalidArgumentException::class, "Invalid phone number format: {$phoneNumber}");
     }
 
     public static function create(string $phoneNumber, ?string $message = null): self

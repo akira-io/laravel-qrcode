@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Akira\QrCode\ValueObjects;
 
 use InvalidArgumentException;
@@ -48,19 +50,11 @@ final readonly class Color
 
     private function validateColorValue(int $value, string $component): void
     {
-        if ($value < 0 || $value > 255) {
-            throw new InvalidArgumentException(
-                "Color {$component} must be between 0 and 255, got {$value}"
-            );
-        }
+        throw_if($value < 0 || $value > 255, InvalidArgumentException::class, "Color {$component} must be between 0 and 255, got {$value}");
     }
 
     private function validateAlphaValue(int $value): void
     {
-        if ($value < 0 || $value > 127) {
-            throw new InvalidArgumentException(
-                "Alpha value must be between 0 and 127, got {$value}"
-            );
-        }
+        throw_if($value < 0 || $value > 127, InvalidArgumentException::class, "Alpha value must be between 0 and 127, got {$value}");
     }
 }

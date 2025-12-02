@@ -28,9 +28,9 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Illuminate\Support\HtmlString|string|null bitcoin(string $address, float $amount = 0.0, array<string, mixed> $options = [])
  * @method static \Illuminate\Support\HtmlString|string|null btc(string $address, float $amount = 0.0, array<string, mixed> $options = [])
  *
- * @see \Akira\QrCode\QrCode
+ * @see Generator
  */
-class QrCode extends Facade
+final class QrCode extends Facade
 {
     /**
      * Get the registered name of the component.

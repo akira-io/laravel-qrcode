@@ -1,38 +1,32 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Akira\QrCode;
 
 use InvalidArgumentException;
 
-class ImageMerge
+final class ImageMerge
 {
-    protected Image $sourceImage;
+    private int $sourceImageHeight;
 
-    protected Image $mergeImage;
+    private int $sourceImageWidth;
 
-    protected int $sourceImageHeight;
+    private int $mergeImageHeight;
 
-    protected int $sourceImageWidth;
+    private int $mergeImageWidth;
 
-    protected int $mergeImageHeight;
+    private float $mergeRatio;
 
-    protected int $mergeImageWidth;
+    private int $postMergeImageHeight;
 
-    protected float $mergeRatio;
+    private int $postMergeImageWidth;
 
-    protected int $postMergeImageHeight;
+    private int $centerY;
 
-    protected int $postMergeImageWidth;
+    private int $centerX;
 
-    protected int $centerY;
-
-    protected int $centerX;
-
-    public function __construct(Image $sourceImage, Image $mergeImage)
-    {
-        $this->sourceImage = $sourceImage;
-        $this->mergeImage = $mergeImage;
-    }
+    public function __construct(private readonly Image $sourceImage, private readonly Image $mergeImage) {}
 
     public function merge(float $percentage): string
     {
@@ -74,7 +68,7 @@ class ImageMerge
         return $this->createImage();
     }
 
-    protected function createImage(): string
+    private function createImage(): string
     {
         ob_start();
         imagepng($this->sourceImage->getImageResource());
@@ -82,11 +76,9 @@ class ImageMerge
         return ob_get_clean() ?: '';
     }
 
-    protected function setProperties(float $percentage): void
+    private function setProperties(float $percentage): void
     {
-        if ($percentage > 1) {
-            throw new InvalidArgumentException('$percentage must be less than 1');
-        }
+        throw_if($percentage > 1, InvalidArgumentException::class, '$percentage must be less than 1');
 
         $this->sourceImageHeight = $this->sourceImage->getHeight();
         $this->sourceImageWidth = $this->sourceImage->getWidth();
@@ -98,16 +90,16 @@ class ImageMerge
         $this->calculateCenter();
     }
 
-    protected function calculateCenter(): void
+    private function calculateCenter(): void
     {
-        $this->centerX = intval(($this->sourceImageWidth / 2) - ($this->postMergeImageWidth / 2));
-        $this->centerY = intval(($this->sourceImageHeight / 2) - ($this->postMergeImageHeight / 2));
+        $this->centerX = (int) (($this->sourceImageWidth / 2) - ($this->postMergeImageWidth / 2));
+        $this->centerY = (int) (($this->sourceImageHeight / 2) - ($this->postMergeImageHeight / 2));
     }
 
-    protected function calculateOverlap(float $percentage): void
+    private function calculateOverlap(float $percentage): void
     {
         $this->mergeRatio = round($this->mergeImageWidth / $this->mergeImageHeight, 2);
-        $this->postMergeImageWidth = intval($this->sourceImageWidth * $percentage);
-        $this->postMergeImageHeight = intval($this->postMergeImageWidth / $this->mergeRatio);
+        $this->postMergeImageWidth = (int) ($this->sourceImageWidth * $percentage);
+        $this->postMergeImageHeight = (int) ($this->postMergeImageWidth / $this->mergeRatio);
     }
 }

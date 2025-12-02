@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -33,7 +35,7 @@ return [
     | This option controls the default size of the QR code in pixels.
     |
     */
-    'size' => (int) (env('QR_CODE_SIZE') ?? 200),
+    'size' => (int) (env('QR_CODE_SIZE', 200)),
 
     /*
     |--------------------------------------------------------------------------
@@ -43,7 +45,7 @@ return [
     | This option controls the default margin around the QR code.
     |
     */
-    'margin' => (int) (env('QR_CODE_MARGIN') ?? 4),
+    'margin' => (int) (env('QR_CODE_MARGIN', 4)),
 
     /*
     |--------------------------------------------------------------------------
@@ -55,10 +57,10 @@ return [
     |
     */
     'color' => [
-        (int) (env('QR_CODE_COLOR_R') ?? 0),
-        (int) (env('QR_CODE_COLOR_G') ?? 0),
-        (int) (env('QR_CODE_COLOR_B') ?? 0),
-        (int) (env('QR_CODE_COLOR_A') ?? 0),
+        (int) (env('QR_CODE_COLOR_R', 0)),
+        (int) (env('QR_CODE_COLOR_G', 0)),
+        (int) (env('QR_CODE_COLOR_B', 0)),
+        (int) (env('QR_CODE_COLOR_A', 0)),
     ],
 
     /*
@@ -71,10 +73,10 @@ return [
     |
     */
     'background_color' => [
-        (int) (env('QR_CODE_BACKGROUND_COLOR_R') ?? 255),
-        (int) (env('QR_CODE_BACKGROUND_COLOR_G') ?? 255),
-        (int) (env('QR_CODE_BACKGROUND_COLOR_B') ?? 255),
-        (int) (env('QR_CODE_BACKGROUND_COLOR_A') ?? 0),
+        (int) (env('QR_CODE_BACKGROUND_COLOR_R', 255)),
+        (int) (env('QR_CODE_BACKGROUND_COLOR_G', 255)),
+        (int) (env('QR_CODE_BACKGROUND_COLOR_B', 255)),
+        (int) (env('QR_CODE_BACKGROUND_COLOR_A', 0)),
     ],
 
     /*
