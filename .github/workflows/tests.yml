@@ -21,6 +21,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Install Aspell
+        shell: bash
+        run: |
+          sudo apt-get update && sudo apt-get install -y aspell aspell-en
+
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
