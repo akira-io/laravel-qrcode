@@ -18,6 +18,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * add support for 'text' method in DataTypeMapper with validation ([cb33a58](https://github.com/akira-io/laravel-qrcode/commit/cb33a5835430c5c7f9154a52cb59b02d2dd2fb79))
 * extend QrCode class with additional methods for various QR code types ([a195c1e](https://github.com/akira-io/laravel-qrcode/commit/a195c1ebebb93d7936431fad17a53809e1341989))
 
-# Changelog
-
-All notable changes to `akira/laravel-qrcode` will be documented in this file.
