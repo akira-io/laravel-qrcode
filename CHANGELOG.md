@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [1.0.1](https://github.com/akira-io/laravel-qrcode/compare/1.0.0...1.0.1) (2025-12-08)
+
 # 1.0.0 (2025-12-02)
 
 
@@ -17,4 +19,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * add release-it configuration and Composer plugin for version management ([290c79c](https://github.com/akira-io/laravel-qrcode/commit/290c79ce83e853a44ba718f32795016039a72809))
 * add support for 'text' method in DataTypeMapper with validation ([cb33a58](https://github.com/akira-io/laravel-qrcode/commit/cb33a5835430c5c7f9154a52cb59b02d2dd2fb79))
 * extend QrCode class with additional methods for various QR code types ([a195c1e](https://github.com/akira-io/laravel-qrcode/commit/a195c1ebebb93d7936431fad17a53809e1341989))
-
