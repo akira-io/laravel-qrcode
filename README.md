@@ -75,25 +75,8 @@ $qrCode = QrCode::size(400)
 
 ## Documentation
 
-Complete documentation is available in the [docs](docs/) folder:
+Complete documentation is available in the package website: [https://packages.akira-io.com/packages/laravel-qrcode](https://packages.akira-io.com/packages/laravel-qrcode)
 
-### Getting Started
-1. [Installation](docs/01-installation.md) - Detailed installation guide
-2. [Configuration](docs/02-configuration.md) - Configuration options
-3. [Quick Start](docs/03-quick-start.md) - Get started in 5 minutes
-
-### Usage Guide
-4. [Basic Usage](docs/04-basic-usage.md) - Fundamentals and examples
-5. [Data Types](docs/05-data-types.md) - WiFi, Email, Phone, SMS, Geo, Bitcoin
-6. [Customization](docs/06-customization.md) - Colors, gradients, styles
-7. [Advanced Features](docs/07-advanced-features.md) - Logo merging, custom types
-
-### Examples & Reference
-8. [Examples](docs/08-examples.md) - Real-world use cases
-9. [Architecture](docs/09-architecture.md) - Package design patterns
-10. [API Reference](docs/10-api-reference.md) - Complete method reference
-11. [Testing](docs/11-testing.md) - Testing guide
-12. [Contributing](docs/12-contributing.md) - How to contribute
 
 ## Available Data Types
 
@@ -185,7 +168,7 @@ See [Architecture Documentation](docs/09-architecture.md) for details.
 
 ## Contributing
 
-Contributions are welcome! Please see [Contributing Guide](docs/12-contributing.md) for details.
+Contributions are welcome! Please see [Contributing Guide](CONTRIBUTING.md) for details.
 
 ## Security
 
@@ -203,7 +186,7 @@ The MIT License (MIT). Please see [License File](LICENSE) for more information.
 
 ## Links
 
-- [Documentation](docs/)
+- [Website](https://packages.akira-io.com/packages/laravel-qrcode)
 - [Changelog](CHANGELOG.md)
 - [Issue Tracker](https://github.com/akira-io/laravel-qrcode/issues)
 - [Packagist](https://packagist.org/packages/akira/laravel-qrcode)
