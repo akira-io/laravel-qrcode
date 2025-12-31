@@ -18,7 +18,8 @@
             "rgb",
             "rgba",
             "bcc",
-            "ssid"
+            "ssid",
+            "roadmap"
         ],
         "paths": []
     }
