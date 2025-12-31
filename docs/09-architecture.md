@@ -411,3 +411,5 @@ See [Advanced Features](07-advanced-features.md) for detailed examples.
 - [Data Types](05-data-types.md) - Explore built-in data types
 - [Advanced Features](07-advanced-features.md) - Create custom types
 - [Testing](11-testing.md) - Testing strategies
+
+**Previous:** [Examples](08-examples.md) | **Next:** [API Reference](10-api-reference.md)

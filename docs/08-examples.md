@@ -661,3 +661,5 @@ class GenerateProductQrCodesCommand extends Command
 - [Testing](11-testing.md) - Testing strategies
 - [API Reference](10-api-reference.md) - Complete method reference
 - [Advanced Features](07-advanced-features.md) - Complex integrations
+
+**Previous:** [Advanced Features](07-advanced-features.md) | **Next:** [Architecture](09-architecture.md)

@@ -530,3 +530,5 @@ By contributing, you agree that your contributions will be licensed under the MI
 ## Thank You
 
 Your contributions make this package better for everyone. Thank you for taking the time to contribute!
+
+**Previous:** [Testing](11-testing.md)

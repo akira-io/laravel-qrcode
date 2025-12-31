@@ -679,3 +679,5 @@ try {
 - [Examples](08-examples.md) - See these methods in action
 - [Testing](11-testing.md) - Testing strategies
 - [Advanced Features](07-advanced-features.md) - Complex usage
+
+**Previous:** [Architecture](09-architecture.md) | **Next:** [Testing](11-testing.md)

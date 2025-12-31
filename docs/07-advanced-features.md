@@ -718,3 +718,5 @@ public function streamQrCode(Request $request): StreamedResponse
 - [Examples](08-examples.md) - Real-world usage examples
 - [Testing](11-testing.md) - Testing strategies
 - [API Reference](10-api-reference.md) - Complete method reference
+
+**Previous:** [Customization](06-customization.md) | **Next:** [Examples](08-examples.md)

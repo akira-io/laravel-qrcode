@@ -531,3 +531,5 @@ For responsive QR codes in web pages:
 - [Advanced Features](07-advanced-features.md) - Image merging and custom types
 - [Examples](08-examples.md) - Real-world customization examples
 - [API Reference](10-api-reference.md) - Complete method reference
+
+**Previous:** [Data Types](05-data-types.md) | **Next:** [Advanced Features](07-advanced-features.md)

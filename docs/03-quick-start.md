@@ -227,3 +227,5 @@ $qrCode = Cache::remember('qr:' . md5($text), 3600, function () use ($text) {
 - [Data Types](05-data-types.md) - All supported data types
 - [Customization](06-customization.md) - Styling and customization options
 - [Examples](08-examples.md) - More real-world examples
+
+**Previous:** [Configuration](02-configuration.md) | **Next:** [Basic Usage](04-basic-usage.md)

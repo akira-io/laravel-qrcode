@@ -569,3 +569,5 @@ vendor/bin/pest --filter=wifi
 - [Contributing](12-contributing.md) - Contributing guidelines
 - [Examples](08-examples.md) - Real-world examples
 - [API Reference](10-api-reference.md) - Complete API documentation
+
+**Previous:** [API Reference](10-api-reference.md) | **Next:** [Contributing](12-contributing.md)

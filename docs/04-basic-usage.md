@@ -569,3 +569,5 @@ QrCode::size(350)
 - [Customization](06-customization.md) - Advanced styling options
 - [Examples](08-examples.md) - Real-world usage examples
 - [API Reference](10-api-reference.md) - Complete method reference
+
+**Previous:** [Quick Start](03-quick-start.md) | **Next:** [Data Types](05-data-types.md)

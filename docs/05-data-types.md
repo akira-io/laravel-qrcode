@@ -663,3 +663,5 @@ bitcoin:<address>?amount=<amount>&label=<label>&message=<message>
 - [Customization](06-customization.md) - Style your QR codes
 - [Advanced Features](07-advanced-features.md) - Create custom data types
 - [Examples](08-examples.md) - Real-world usage examples
+
+**Previous:** [Basic Usage](04-basic-usage.md) | **Next:** [Customization](06-customization.md)
