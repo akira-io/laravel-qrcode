@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+# [1.1.0](https://github.com/akira-io/laravel-qrcode/compare/1.0.4...1.1.0) (2026-02-24)
+
+
+### Features
+
+* add support for Laravel 13 ([dc0f464](https://github.com/akira-io/laravel-qrcode/commit/dc0f464e6801e9ca7e7c47d65ed82dc2621a3fe9))
+
 ## [1.0.4](https://github.com/akira-io/laravel-qrcode/compare/1.0.3...1.0.4) (2026-01-27)
 
 ## [1.0.3](https://github.com/akira-io/laravel-qrcode/compare/1.0.2...1.0.3) (2025-12-31)
