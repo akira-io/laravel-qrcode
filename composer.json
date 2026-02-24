@@ -15,8 +15,8 @@
         "php": "^8.4",
         "ext-gd": "*",
         "bacon/bacon-qr-code": "^3.0",
-        "illuminate/contracts": "^12.0",
-        "illuminate/support": "^12.0"
+        "illuminate/contracts": "^12.0 | ^13.0",
+        "illuminate/support": "^12.0 | ^13.0"
     },
     "require-dev": {
         "akira/laravel-debugger": "^1.0",
