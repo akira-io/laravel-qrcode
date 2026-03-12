@@ -1,3 +1,4 @@
+<!-- Comentário de teste adicionado temporariamente -->
 <div align="center">
 
 ![img.png](docs/assets/banner.png)
