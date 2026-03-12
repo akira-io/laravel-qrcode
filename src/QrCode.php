@@ -1,5 +1,7 @@
 <?php
 
+// Comentário de teste adicionado temporariamente
+
 declare(strict_types=1);
 
 namespace Akira\QrCode;
