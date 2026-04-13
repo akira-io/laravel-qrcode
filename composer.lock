@@ -4194,16 +4194,16 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.33.0",
+            "version": "v1.34.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "a3cc8b044a6ea513310cbd48ef7333b384945638"
+                "reference": "141046a8f9477948ff284fa65be2095baafb94f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/a3cc8b044a6ea513310cbd48ef7333b384945638",
-                "reference": "a3cc8b044a6ea513310cbd48ef7333b384945638",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/141046a8f9477948ff284fa65be2095baafb94f2",
+                "reference": "141046a8f9477948ff284fa65be2095baafb94f2",
                 "shasum": ""
             },
             "require": {
@@ -4253,7 +4253,7 @@
                 "portable"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.33.0"
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.34.0"
             },
             "funding": [
                 {
@@ -4273,7 +4273,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-09T11:45:10+00:00"
+            "time": "2026-04-10T16:19:22+00:00"
         },
         {
             "name": "symfony/polyfill-intl-grapheme",
@@ -6201,22 +6201,22 @@
         },
         {
             "name": "driftingly/rector-laravel",
-            "version": "2.1.12",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/driftingly/rector-laravel.git",
-                "reference": "2a2175eefabca6d15c247d55de17c75dc2f787a9"
+                "reference": "3c1c13f335b3b4d1a1f944a8ea194020044871ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/driftingly/rector-laravel/zipball/2a2175eefabca6d15c247d55de17c75dc2f787a9",
-                "reference": "2a2175eefabca6d15c247d55de17c75dc2f787a9",
+                "url": "https://api.github.com/repos/driftingly/rector-laravel/zipball/3c1c13f335b3b4d1a1f944a8ea194020044871ed",
+                "reference": "3c1c13f335b3b4d1a1f944a8ea194020044871ed",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.4 || ^8.0",
                 "rector/rector": "^2.2.7",
-                "webmozart/assert": "^1.11"
+                "webmozart/assert": "^1.11 || ^2.0"
             },
             "type": "rector-extension",
             "autoload": {
@@ -6231,9 +6231,9 @@
             "description": "Rector upgrades rules for Laravel Framework",
             "support": {
                 "issues": "https://github.com/driftingly/rector-laravel/issues",
-                "source": "https://github.com/driftingly/rector-laravel/tree/2.1.12"
+                "source": "https://github.com/driftingly/rector-laravel/tree/2.3.0"
             },
-            "time": "2026-03-06T19:59:21+00:00"
+            "time": "2026-04-08T10:52:44+00:00"
         },
         {
             "name": "fakerphp/faker",
@@ -8626,11 +8626,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.41",
+            "version": "2.1.47",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/a2eae8f20856b3afe74bf1f9726ce8c11438e300",
-                "reference": "a2eae8f20856b3afe74bf1f9726ce8c11438e300",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/79015445d8bd79e62b29140f12e5bfced1dcca65",
+                "reference": "79015445d8bd79e62b29140f12e5bfced1dcca65",
                 "shasum": ""
             },
             "require": {
@@ -8675,7 +8675,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-03-16T18:24:10+00:00"
+            "time": "2026-04-13T15:49:08+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -9210,21 +9210,21 @@
         },
         {
             "name": "rector/rector",
-            "version": "2.3.9",
+            "version": "2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "917842143fd9f5331a2adefc214b8d7143bd32c4"
+                "reference": "000b7050b9e4fe98db2192971e56eb0b302b3feb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/917842143fd9f5331a2adefc214b8d7143bd32c4",
-                "reference": "917842143fd9f5331a2adefc214b8d7143bd32c4",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/000b7050b9e4fe98db2192971e56eb0b302b3feb",
+                "reference": "000b7050b9e4fe98db2192971e56eb0b302b3feb",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.4|^8.0",
-                "phpstan/phpstan": "^2.1.40"
+                "phpstan/phpstan": "^2.1.41"
             },
             "conflict": {
                 "rector/rector-doctrine": "*",
@@ -9258,7 +9258,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/2.3.9"
+                "source": "https://github.com/rectorphp/rector/tree/2.4.1"
             },
             "funding": [
                 {
@@ -9266,7 +9266,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-03-16T09:43:55+00:00"
+            "time": "2026-04-08T08:43:56+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -10811,23 +10811,23 @@
         },
         {
             "name": "webmozart/assert",
-            "version": "1.12.1",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozarts/assert.git",
-                "reference": "9be6926d8b485f55b9229203f962b51ed377ba68"
+                "reference": "eb0d790f735ba6cff25c683a85a1da0eadeff9e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozarts/assert/zipball/9be6926d8b485f55b9229203f962b51ed377ba68",
-                "reference": "9be6926d8b485f55b9229203f962b51ed377ba68",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/eb0d790f735ba6cff25c683a85a1da0eadeff9e4",
+                "reference": "eb0d790f735ba6cff25c683a85a1da0eadeff9e4",
                 "shasum": ""
             },
             "require": {
                 "ext-ctype": "*",
                 "ext-date": "*",
                 "ext-filter": "*",
-                "php": "^7.2 || ^8.0"
+                "php": "^8.2"
             },
             "suggest": {
                 "ext-intl": "",
@@ -10837,7 +10837,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.10-dev"
+                    "dev-feature/2-0": "2.0-dev"
                 }
             },
             "autoload": {
@@ -10853,6 +10853,10 @@
                 {
                     "name": "Bernhard Schussek",
                     "email": "bschussek@gmail.com"
+                },
+                {
+                    "name": "Woody Gilk",
+                    "email": "woody.gilk@gmail.com"
                 }
             ],
             "description": "Assertions to validate method input/output with nice error messages.",
@@ -10863,9 +10867,9 @@
             ],
             "support": {
                 "issues": "https://github.com/webmozarts/assert/issues",
-                "source": "https://github.com/webmozarts/assert/tree/1.12.1"
+                "source": "https://github.com/webmozarts/assert/tree/2.3.0"
             },
-            "time": "2025-10-29T15:56:20+00:00"
+            "time": "2026-04-11T10:33:05+00:00"
         },
         {
             "name": "zbateson/mail-mime-parser",
