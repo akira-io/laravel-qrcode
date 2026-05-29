@@ -30,6 +30,8 @@ final class DataTypeMapper
         return match (mb_strtolower($method)) {
             'text' => self::createText($arguments),
             'email' => self::createEmail($arguments),
+            'vcard', 'contact' => ContactEventDataTypeMapper::createVCard($arguments),
+            'ical', 'calendar', 'event' => ContactEventDataTypeMapper::createCalendarEvent($arguments),
             'wifi' => self::createWiFi($arguments),
             'sms' => self::createSMS($arguments),
             'btc', 'bitcoin' => self::createBitcoin($arguments),
