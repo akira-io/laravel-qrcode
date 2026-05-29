@@ -141,6 +141,33 @@ test('data type uses dependency injection', function () {
 });
 ```
 
+### Testing Payloads
+
+Use `QrCodePayloadAssertions` when you want to test the payload before rendering it, or when your application provides a QR decoder.
+
+```php
+use Akira\QrCode\Testing\QrCodePayloadAssertions;
+
+test('wifi payload contains network name', function () {
+    $payload = 'WIFI:S:Network;P:secret;';
+
+    QrCodePayloadAssertions::assertPayloadStartsWith('WIFI:', $payload);
+    QrCodePayloadAssertions::assertPayloadContains('S:Network', $payload);
+});
+
+test('decoded qr image matches expected payload', function () {
+    $decoder = fn (string $path): string => app(MyQrDecoder::class)->decode($path);
+
+    QrCodePayloadAssertions::assertDecodedPayload(
+        storage_path('qrcodes/example.png'),
+        $decoder,
+        'https://example.com'
+    );
+});
+```
+
+The package does not install a decoder by default. Use a decoder in your application test suite when you need image-level scannability checks.
+
 ## Integration Testing
 
 ### Testing with Controllers
