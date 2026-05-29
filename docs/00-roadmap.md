@@ -18,7 +18,7 @@ This document outlines the planned features and improvements for the Akira Larav
 - Follow existing SMS/Email data type patterns
 - Action-based string building
 
-**Payment URIs**
+**Payment URIs** (Ethereum and Litecoin implemented for v1.3.0)
 - Support additional cryptocurrency formats (Ethereum, Litecoin)
 - Extend existing Bitcoin implementation
 - Reuse BitcoinDataType architecture

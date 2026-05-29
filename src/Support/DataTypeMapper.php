@@ -33,6 +33,8 @@ final class DataTypeMapper
             'wifi' => self::createWiFi($arguments),
             'sms' => self::createSMS($arguments),
             'btc', 'bitcoin' => self::createBitcoin($arguments),
+            'eth', 'ethereum' => PaymentDataTypeMapper::createEthereum($arguments),
+            'ltc', 'litecoin' => PaymentDataTypeMapper::createLitecoin($arguments),
             'geo' => self::createGeo($arguments),
             'phonenumber', 'phone' => self::createPhoneNumber($arguments),
             default => throw new BadMethodCallException("Method {$method} not found"),
