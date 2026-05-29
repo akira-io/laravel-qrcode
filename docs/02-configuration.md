@@ -27,8 +27,8 @@ Controls the default output format for QR codes.
 ```
 
 **Supported formats:**
-- `png` - PNG image format (requires ext-gd)
-- `svg` - SVG vector format (default)
+- `png` - PNG image format (requires ext-imagick)
+- `svg` - SVG vector format
 - `eps` - Encapsulated PostScript format
 
 ### Size
@@ -119,8 +119,8 @@ Options for merging images (logos) with QR codes:
 ],
 ```
 
-- `percentage` - Logo size as percentage of QR code (0.0 - 0.5)
-- `absolute` - Use absolute pixel size instead of percentage
+- `percentage` - Logo size as percentage of QR code (0.0 - 1.0)
+- `absolute` - Treat the image path as an absolute path
 
 ## Environment Variables
 

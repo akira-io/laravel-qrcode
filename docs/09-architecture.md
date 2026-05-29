@@ -321,7 +321,7 @@ public function generate(string $text, ?string $filename = null): HtmlString|str
 The package maintains PHPStan Level 9 compliance:
 
 ```bash
-composer analyse
+composer test
 ```
 
 This ensures:

@@ -86,9 +86,6 @@ composer install
 # Run all tests
 composer test
 
-# Run with coverage
-composer test-coverage
-
 # Run specific test
 vendor/bin/pest tests/Feature/QrCodeTest.php
 ```
@@ -96,9 +93,6 @@ vendor/bin/pest tests/Feature/QrCodeTest.php
 ### Run Code Analysis
 
 ```bash
-# PHPStan static analysis
-composer analyse
-
 # Laravel Pint code style
 composer lint
 ```
@@ -252,7 +246,7 @@ vendor/bin/pint
 All code must pass PHPStan Level 9:
 
 ```bash
-composer analyse
+composer test
 ```
 
 ### Common PHPStan Issues
@@ -320,11 +314,11 @@ test('generates custom qr code', function () {
 Aim for high test coverage:
 
 ```bash
-composer test-coverage
+composer test
 ```
 
 Minimum coverage targets:
-- Overall: 80%
+- Overall: 65%
 - New features: 90%
 - Critical paths: 100%
 
@@ -375,12 +369,7 @@ Update relevant documentation files in `docs/`:
    composer test
    ```
 
-3. **Run static analysis**
-   ```bash
-   composer analyse
-   ```
-
-4. **Fix code style**
+3. **Fix code style**
    ```bash
    composer lint
    ```

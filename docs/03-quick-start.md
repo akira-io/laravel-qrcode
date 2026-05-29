@@ -119,7 +119,7 @@ class QrCodeController extends Controller
 
 ```blade
 @php
-    $qrCode = QrCode::format('png')->size(300)->generate('https://example.com');
+    $qrCode = QrCode::format('png')->size(300)->generateRaw('https://example.com');
     $base64 = base64_encode($qrCode);
 @endphp
 
@@ -197,7 +197,7 @@ public function api(Request $request): JsonResponse
 {
     $qrCode = QrCode::format('png')
         ->size(300)
-        ->generate($request->input('text'));
+        ->generateRaw($request->input('text'));
     
     return response()->json([
         'success' => true,

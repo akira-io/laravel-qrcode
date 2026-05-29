@@ -24,6 +24,8 @@ A clean, modern, and easy-to-use QR code generator for Laravel applications. Bui
 ## Requirements
 
 - PHP 8.4+
+- GD extension
+- Imagick extension for PNG output
 - Laravel 12.0+
 
 ## Installation
@@ -107,21 +109,21 @@ Complete documentation is available in the package website: [https://packages.ak
 ### In Blade Templates
 
 ```blade
-<img src="data:image/png;base64,{{ base64_encode($qrCode) }}" alt="QR Code">
+{!! QrCode::format('png')->generate('https://example.com') !!}
 ```
 
 ### API Response
 
 ```php
 return response()->json([
-    'qrcode' => base64_encode(QrCode::format('png')->text($data))
+    'qrcode' => base64_encode(QrCode::format('png')->generateRaw($data))
 ]);
 ```
 
 ### Download Response
 
 ```php
-$png = QrCode::format('png')->size(500)->text($data);
+$png = QrCode::format('png')->size(500)->generateRaw($data);
 
 return response($png)
     ->header('Content-Type', 'image/png')
@@ -141,14 +143,8 @@ $qrCode = QrCode::format('png')
 ## Testing
 
 ```bash
-# Run tests
+# Run code quality checks and tests
 composer test
-
-# Run tests with coverage
-composer test-coverage
-
-# Run static analysis
-composer analyse
 
 # Run code style fixer
 composer lint

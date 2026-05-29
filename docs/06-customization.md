@@ -301,14 +301,13 @@ $qrCode = QrCode::format('png')
     ->generate('QR with Logo');
 ```
 
-### Absolute Size
+### Absolute Paths
 
 ```php
-// Use absolute pixel size for logo
 $qrCode = QrCode::format('png')
     ->size(500)
     ->errorCorrection('H')
-    ->merge(public_path('images/logo.png'), 100, true)  // 100px, absolute
+    ->merge(public_path('images/logo.png'), 0.2, true)
     ->generate('QR with Logo');
 ```
 
@@ -350,7 +349,7 @@ $qrCode = QrCode::format('png')
 - Supports image merging
 - Direct image embedding
 
-**Requirements:** ext-gd extension
+**Requirements:** ext-imagick for PNG output. Image merging also requires ext-gd.
 
 ### EPS (PostScript)
 

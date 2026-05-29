@@ -12,6 +12,8 @@ final readonly class QrCodeMargin
         public int $value
     ) {
         throw_if($value < 0, InvalidArgumentException::class, 'Margin must be greater than or equal to 0');
+
+        throw_if($value > 50, InvalidArgumentException::class, 'Margin must be less than or equal to 50');
     }
 
     public static function fromInt(int $margin): self

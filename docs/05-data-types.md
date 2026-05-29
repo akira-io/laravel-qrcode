@@ -300,15 +300,15 @@ $qrCode = QrCode::bitcoin(
 ### Parameters
 
 ```php
-bitcoin(string $address, float $amount, array $options = [])
+bitcoin(string $address, ?float $amount = null, array $options = [])
 ```
 
 - `$address` (string, required): Bitcoin address
-- `$amount` (float, required): Amount in BTC
+- `$amount` (float|null, optional): Amount in BTC
 - `$options` (array, optional):
   - `label` (string): Payment label
   - `message` (string): Message to recipient
-  - `return` (string): Return/callback URL
+  - `return` or `returnAddress` (string): Return callback URL
 
 ### Examples
 

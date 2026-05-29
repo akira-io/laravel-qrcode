@@ -14,24 +14,30 @@ final class BuildWiFiStringAction
 
     public function handle(WiFiData $data): string
     {
-        $wifi = self::PREFIX;
-
-        if ($data->hasPassword()) {
-            $wifi .= 'T:WPA'.self::SEPARATOR;
-        }
+        $wifi = self::PREFIX.'T:'.$data->encryptionType().self::SEPARATOR;
 
         if ($data->ssid !== '' && $data->ssid !== '0') {
-            $wifi .= 'S:'.$data->ssid.self::SEPARATOR;
+            $wifi .= 'S:'.$this->escape($data->ssid).self::SEPARATOR;
         }
 
         if ($data->hasPassword()) {
-            $wifi .= 'P:'.$data->password.self::SEPARATOR;
+            $wifi .= 'P:'.$this->escape((string) $data->password).self::SEPARATOR;
         }
 
         if ($data->hidden) {
             $wifi .= 'H:true'.self::SEPARATOR;
         }
 
-        return $wifi;
+        return $wifi.self::SEPARATOR;
+    }
+
+    private function escape(string $value): string
+    {
+        return strtr($value, [
+            '\\' => '\\\\',
+            ';' => '\;',
+            ',' => '\,',
+            ':' => '\:',
+        ]);
     }
 }
