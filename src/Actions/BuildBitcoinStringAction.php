@@ -14,6 +14,10 @@ final class BuildBitcoinStringAction
     {
         $params = $data->toArray();
 
+        if ($params === []) {
+            return self::PREFIX.$data->address;
+        }
+
         return self::PREFIX.$data->address.'?'.http_build_query($params);
     }
 }

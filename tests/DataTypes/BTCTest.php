@@ -12,6 +12,13 @@ it('should generate a valid BTC QR code', function (): void {
     expect((string) $dataType)->toBe('bitcoin:btcaddress?amount=0.0034');
 });
 
+it('should generate a valid BTC QR code without an amount', function (): void {
+    $bitcoinData = BitcoinData::create('btcaddress');
+    $dataType = BitcoinDataType::fromValueObject($bitcoinData);
+
+    expect((string) $dataType)->toBe('bitcoin:btcaddress');
+});
+
 it('should generate a valid BTC QR code with label', function (): void {
     $bitcoinData = BitcoinData::create('btcaddress', 0.0034, 'label');
     $dataType = BitcoinDataType::fromValueObject($bitcoinData);

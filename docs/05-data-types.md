@@ -134,6 +134,116 @@ $qrCode = QrCode::size(350)
     ->email('contact@example.com', 'Subject', 'Body');
 ```
 
+## vCard Contacts
+
+Generate QR codes for contact cards.
+
+### Basic Usage
+
+```php
+use Akira\QrCode\Facades\QrCode;
+
+$qrCode = QrCode::vcard([
+    'fullName' => 'Jane Doe',
+    'firstName' => 'Jane',
+    'lastName' => 'Doe',
+    'email' => 'jane@example.com',
+    'phone' => '+1234567890'
+]);
+```
+
+### Parameters
+
+Array with the following keys:
+- `fullName` (string, required): Display name for the contact
+- `firstName` (string, optional): Given name
+- `lastName` (string, optional): Family name
+- `organization` (string, optional): Organization name
+- `title` (string, optional): Job title
+- `phone` (string, optional): Phone number
+- `email` (string, optional): Email address
+- `url` (string, optional): Website URL
+- `address` (string, optional): Mailing address
+- `note` (string, optional): Contact note
+
+### Examples
+
+**Complete Contact:**
+```php
+$qrCode = QrCode::vcard([
+    'fullName' => 'Jane Doe',
+    'firstName' => 'Jane',
+    'lastName' => 'Doe',
+    'organization' => 'Akira',
+    'title' => 'Engineer',
+    'phone' => '+1234567890',
+    'email' => 'jane@example.com',
+    'url' => 'https://example.com',
+    'address' => '742 Evergreen Terrace'
+]);
+```
+
+**Contact Alias:**
+```php
+$qrCode = QrCode::contact([
+    'name' => 'John Doe',
+    'email' => 'john@example.com'
+]);
+```
+
+## Calendar Events
+
+Generate QR codes for VEVENT calendar entries.
+
+### Basic Usage
+
+```php
+use Akira\QrCode\Facades\QrCode;
+
+$qrCode = QrCode::ical([
+    'summary' => 'Release planning',
+    'startsAt' => '2026-06-01 10:00:00 UTC',
+    'endsAt' => '2026-06-01 11:00:00 UTC',
+    'location' => 'HQ'
+]);
+```
+
+### Parameters
+
+Array with the following keys:
+- `summary` (string, required): Event title
+- `startsAt` (DateTimeInterface|string, required): Event start date
+- `endsAt` (DateTimeInterface|string, required): Event end date
+- `location` (string, optional): Event location
+- `description` (string, optional): Event description
+- `uid` (string, optional): Event UID
+- `timestamp` (DateTimeInterface|string, optional): Event creation timestamp
+
+The aliases `calendar` and `event` use the same format as `ical`.
+
+### Examples
+
+**Calendar Event:**
+```php
+$qrCode = QrCode::calendar([
+    'summary' => 'Team meeting',
+    'startsAt' => now()->addDay(),
+    'endsAt' => now()->addDay()->addHour(),
+    'location' => 'Conference room',
+    'description' => 'Weekly planning'
+]);
+```
+
+**Stable Event UID:**
+```php
+$qrCode = QrCode::event([
+    'summary' => 'Product demo',
+    'startsAt' => '2026-06-01 14:00:00 UTC',
+    'endsAt' => '2026-06-01 15:00:00 UTC',
+    'uid' => 'product-demo@example.com'
+]);
+```
+
 ## Phone Numbers
 
 Generate QR codes for phone numbers that can be called directly.
@@ -300,15 +410,15 @@ $qrCode = QrCode::bitcoin(
 ### Parameters
 
 ```php
-bitcoin(string $address, float $amount, array $options = [])
+bitcoin(string $address, ?float $amount = null, array $options = [])
 ```
 
 - `$address` (string, required): Bitcoin address
-- `$amount` (float, required): Amount in BTC
+- `$amount` (float|null, optional): Amount in BTC
 - `$options` (array, optional):
   - `label` (string): Payment label
   - `message` (string): Message to recipient
-  - `return` (string): Return/callback URL
+  - `return` or `returnAddress` (string): Return callback URL
 
 ### Examples
 

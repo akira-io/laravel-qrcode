@@ -6,13 +6,13 @@ This document outlines the planned features and improvements for the Akira Larav
 
 ### Additional Data Types
 
-**vCard Support**
+**vCard Support** (implemented for v1.3.0)
 - Implement vCard QR codes for contact information
 - Based on existing DataType architecture
 - Use ValueObject pattern for contact data validation
-- Leverage DataTypeMapper for method resolution
+- Use DataTypeMapper for method resolution
 
-**Calendar Events (iCal)**
+**Calendar Events (iCal)** (implemented for v1.3.0)
 - Generate QR codes for calendar events
 - Support VEVENT format
 - Follow existing SMS/Email data type patterns
@@ -36,7 +36,7 @@ This document outlines the planned features and improvements for the Akira Larav
 - Per-eye style control
 - Rounded rectangle eye variant
 - Build on existing eyeColor() and eye() methods
-- Leverage EyeFill architecture
+- Use EyeFill architecture
 
 **Background Images**
 - Support background image patterns
@@ -54,7 +54,7 @@ This document outlines the planned features and improvements for the Akira Larav
 
 **WebP Support**
 - Modern image format support
-- Leverage GD or Imagick extensions
+- Use GD or Imagick extensions
 - Extend ImagickImageBackEnd class
 - Format detection in generate method
 
@@ -91,7 +91,7 @@ This document outlines the planned features and improvements for the Akira Larav
 **Validation Helpers**
 - Validate QR code data before generation
 - Pre-generation error checking
-- Leverage existing ValueObject validation
+- Use existing ValueObject validation
 - Enhanced error messages
 
 **CLI Commands**

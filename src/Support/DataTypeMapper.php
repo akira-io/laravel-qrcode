@@ -30,6 +30,8 @@ final class DataTypeMapper
         return match (mb_strtolower($method)) {
             'text' => self::createText($arguments),
             'email' => self::createEmail($arguments),
+            'vcard', 'contact' => ContactEventDataTypeMapper::createVCard($arguments),
+            'ical', 'calendar', 'event' => ContactEventDataTypeMapper::createCalendarEvent($arguments),
             'wifi' => self::createWiFi($arguments),
             'sms' => self::createSMS($arguments),
             'btc', 'bitcoin' => self::createBitcoin($arguments),
@@ -91,11 +93,13 @@ final class DataTypeMapper
         $ssid = $data['ssid'] ?? '';
         $password = $data['password'] ?? null;
         $hidden = $data['hidden'] ?? false;
+        $encryption = $data['encryption'] ?? 'WPA';
 
         $wifiData = WiFiData::create(
             ssid: is_string($ssid) ? $ssid : '',
             password: is_string($password) ? $password : null,
             hidden: is_bool($hidden) && $hidden,
+            encryption: is_string($encryption) ? $encryption : 'WPA',
         );
 
         return (string) WiFiDataType::fromValueObject($wifiData);
@@ -128,14 +132,14 @@ final class DataTypeMapper
         $options = new Fluent(is_array($optionsData) ? $optionsData : []);
 
         $address = $args->get(0, '');
-        $amount = $args->get(1, 0.0);
+        $amount = $args->get(1);
         $label = $options->get('label');
         $message = $options->get('message');
-        $returnAddress = $options->get('returnAddress');
+        $returnAddress = $options->get('returnAddress', $options->get('return'));
 
         $bitcoinData = BitcoinData::create(
             address: is_string($address) ? $address : '',
-            amount: is_numeric($amount) ? (float) $amount : 0.0,
+            amount: is_numeric($amount) ? (float) $amount : null,
             label: is_string($label) ? $label : null,
             message: is_string($message) ? $message : null,
             returnAddress: is_string($returnAddress) ? $returnAddress : null

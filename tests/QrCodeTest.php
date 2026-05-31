@@ -163,6 +163,26 @@ it('throws exception if dot module with 1 roundness is set', function (): void {
     (resolve(QrCode::class))->style('dot', 1);
 })->throws(InvalidArgumentException::class);
 
+it('throws exception if size is below the supported range', function (): void {
+    (resolve(QrCode::class))->size(9);
+})->throws(InvalidArgumentException::class, 'QR Code size must be between 10 and 2000 pixels');
+
+it('throws exception if size is above the supported range', function (): void {
+    (resolve(QrCode::class))->size(2001);
+})->throws(InvalidArgumentException::class, 'QR Code size must be between 10 and 2000 pixels');
+
+it('throws exception if margin is negative', function (): void {
+    (resolve(QrCode::class))->margin(-1);
+})->throws(InvalidArgumentException::class, 'Margin must be greater than or equal to 0');
+
+it('throws exception if margin is above the supported range', function (): void {
+    (resolve(QrCode::class))->margin(51);
+})->throws(InvalidArgumentException::class, 'Margin must be less than or equal to 50');
+
+it('throws exception if merged image is not readable', function (): void {
+    (resolve(QrCode::class))->merge('missing-logo.png');
+})->throws(RuntimeException::class, 'Image file is not readable');
+
 test('get renderer return a renderer instance', function (): void {
     $qrCode = resolve(QrCode::class);
     expect($qrCode->getRendererStyle())->not->toBeNull()->toBeInstanceOf(RendererStyle::class);
@@ -176,3 +196,26 @@ it('return html string', function (): void {
     $qrCode = resolve(QrCode::class);
     expect($qrCode->generate('This is a test'))->toBeInstanceOf(HtmlString::class);
 });
+
+it('can return raw qr code output', function (): void {
+    $qrCode = resolve(QrCode::class);
+    expect($qrCode->format('svg')->generateRaw('This is a test'))->toBeString()->toContain('<svg');
+});
+
+it('can return raw png output', function (): void {
+    $qrCode = resolve(QrCode::class);
+    expect($qrCode->format('png')->generateRaw('This is a test'))->toStartWith("\x89PNG");
+});
+
+it('returns null when raw output is written to a file', function (): void {
+    $path = __DIR__.'/images/generated-raw-qrcode.svg';
+
+    expect((resolve(QrCode::class))->format('svg')->generateRaw('This is a test', $path))->toBeNull();
+    expect(file_exists($path))->toBeTrue();
+
+    unlink($path);
+});
+
+it('throws exception when QR code cannot be written to a file', function (): void {
+    (resolve(QrCode::class))->generate('This is a test', __DIR__.'/missing-directory/qrcode.png');
+})->throws(RuntimeException::class, 'Unable to write QR code file');
