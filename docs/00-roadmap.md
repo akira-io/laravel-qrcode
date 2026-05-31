@@ -18,7 +18,7 @@ This document outlines the planned features and improvements for the Akira Larav
 - Follow existing SMS/Email data type patterns
 - Action-based string building
 
-**Payment URIs**
+**Payment URIs** (Ethereum and Litecoin implemented for v1.3.0)
 - Support additional cryptocurrency formats (Ethereum, Litecoin)
 - Extend existing Bitcoin implementation
 - Reuse BitcoinDataType architecture
@@ -36,7 +36,7 @@ This document outlines the planned features and improvements for the Akira Larav
 - Per-eye style control
 - Rounded rectangle eye variant
 - Build on existing eyeColor() and eye() methods
-- Leverage EyeFill architecture
+- Use EyeFill architecture
 
 **Background Images**
 - Support background image patterns
@@ -54,7 +54,7 @@ This document outlines the planned features and improvements for the Akira Larav
 
 **WebP Support**
 - Modern image format support
-- Leverage GD or Imagick extensions
+- Use GD or Imagick extensions
 - Extend ImagickImageBackEnd class
 - Format detection in generate method
 
@@ -91,7 +91,7 @@ This document outlines the planned features and improvements for the Akira Larav
 **Validation Helpers**
 - Validate QR code data before generation
 - Pre-generation error checking
-- Leverage existing ValueObject validation
+- Use existing ValueObject validation
 - Enhanced error messages
 
 **CLI Commands**

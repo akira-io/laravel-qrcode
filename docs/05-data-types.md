@@ -460,6 +460,94 @@ $qrCode = QrCode::size(400)
     ->bitcoin('1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa', 0.001);
 ```
 
+## Ethereum Addresses
+
+Generate QR codes for Ethereum payment URIs.
+
+### Basic Usage
+
+```php
+use Akira\QrCode\Facades\QrCode;
+
+$qrCode = QrCode::ethereum(
+    '0x0000000000000000000000000000000000000001',
+    '1000000000000000000'
+);
+```
+
+### Parameters
+
+```php
+ethereum(string $address, string|int|float|null $value = null, array $options = [])
+```
+
+- `$address` (string, required): Ethereum address
+- `$value` (string|int|float|null, optional): Payment value in wei
+- `$options` (array, optional):
+  - `chainId` (int): Ethereum chain ID
+  - `label` (string): Payment label
+  - `message` (string): Payment message
+
+### Examples
+
+**Mainnet Payment:**
+```php
+$qrCode = QrCode::ethereum(
+    '0x0000000000000000000000000000000000000001',
+    '1000000000000000000',
+    ['chainId' => 1]
+);
+```
+
+**With Label:**
+```php
+$qrCode = QrCode::eth(
+    '0x0000000000000000000000000000000000000001',
+    '500000000000000000',
+    ['label' => 'Donation']
+);
+```
+
+## Litecoin Addresses
+
+Generate QR codes for Litecoin payment URIs.
+
+### Basic Usage
+
+```php
+use Akira\QrCode\Facades\QrCode;
+
+$qrCode = QrCode::litecoin('ltcaddress', 1.25);
+```
+
+### Parameters
+
+```php
+litecoin(string $address, float $amount, array $options = [])
+```
+
+- `$address` (string, required): Litecoin address
+- `$amount` (float, required): Amount in LTC
+- `$options` (array, optional):
+  - `label` (string): Payment label
+  - `message` (string): Payment message
+
+### Examples
+
+**Simple Payment:**
+```php
+$qrCode = QrCode::litecoin('ltcaddress', 1.25);
+```
+
+**With Label and Message:**
+```php
+$qrCode = QrCode::ltc(
+    'ltcaddress',
+    1.25,
+    ['label' => 'Donation', 'message' => 'Thanks']
+);
+```
+
 ## Complete Examples from Playground
 
 ### Basic Text QR Codes

@@ -19,7 +19,9 @@
             "rgba",
             "bcc",
             "ssid",
-            "roadmap"
+            "roadmap",
+            "ethereum",
+            "litecoin"
         ],
         "paths": []
     }

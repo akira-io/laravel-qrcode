@@ -15,7 +15,7 @@ A clean, modern, and easy-to-use QR code generator for Laravel applications. Bui
 
 - Multiple output formats (PNG, SVG, EPS)
 - Highly customizable (colors, gradients, styles, sizes)
-- Specialized data types (WiFi, Email, vCard, Calendar, Phone, SMS, Geo, Bitcoin)
+- Specialized data types (WiFi, Email, vCard, Calendar, Phone, SMS, Geo, Bitcoin, Ethereum, Litecoin)
 - Logo/image merging support
 - Type-safe with PHP 8.4+
 - PHPStan Level 9 compliant
@@ -80,6 +80,15 @@ $qrCode = QrCode::ical([
 // Phone
 $qrCode = QrCode::phone('+1234567890');
 
+// Ethereum
+$qrCode = QrCode::ethereum(
+    '0x0000000000000000000000000000000000000001',
+    '1000000000000000000'
+);
+
+// Litecoin
+$qrCode = QrCode::litecoin('ltcaddress', 1.25);
+
 // With styling
 $qrCode = QrCode::size(400)
     ->gradient(255, 0, 0, 0, 0, 255, 'diagonal')
@@ -105,6 +114,8 @@ Complete documentation is available in the package website: [https://packages.ak
 | SMS | Pre-filled message | `QrCode::sms('+1234567890', 'Hello')` |
 | Geo | GPS coordinates | `QrCode::geo(37.7749, -122.4194, 'San Francisco')` |
 | Bitcoin | Payment address | `QrCode::bitcoin('address', 0.001, ['label' => 'Donation'])` |
+| Ethereum | Payment address | `QrCode::ethereum('0x...', '1000000000000000000', ['chainId' => 1])` |
+| Litecoin | Payment address | `QrCode::litecoin('address', 1.25, ['label' => 'Donation'])` |
 
 ## Customization Options
 
