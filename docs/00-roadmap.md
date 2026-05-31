@@ -114,7 +114,7 @@ This document outlines the planned features and improvements for the Akira Larav
 - Detect rendering changes
 - Pest plugin integration
 
-**QR Code Validation**
+**QR Code Validation** (payload assertions implemented for v1.3.0)
 - Test if QR codes are scannable
 - Decode and verify content
 - Integration with ZXing or similar
