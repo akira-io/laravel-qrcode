@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Akira\QrCode\ValueObjects;
 
+use Error;
 use InvalidArgumentException;
 
 final readonly class ImageMergeConfig
@@ -30,7 +31,11 @@ final readonly class ImageMergeConfig
         }
 
         if (function_exists('base_path')) {
-            return base_path($this->filepath);
+            try {
+                return base_path($this->filepath);
+            } catch (Error) {
+                return $this->filepath;
+            }
         }
 
         return $this->filepath;
