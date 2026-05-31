@@ -1,0 +1,49 @@
+[changelog]
+header = """# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+"""
+body = """
+{% if version %}\
+## [{{ version | trim_start_matches(pat="v") }}](https://github.com/{{ remote.github.owner }}/{{ remote.github.repo }}/compare/{{ previous.version }}...{{ version }}) ({{ timestamp | date(format="%Y-%m-%d") }})
+{% endif %}\
+{% for group, commits in commits | group_by(attribute="group") %}
+### {{ group | striptags | trim }}
+
+{% for commit in commits %}\
+- {% if commit.scope %}**{{ commit.scope }}:** {% endif %}{{ commit.message | upper_first }} ([{{ commit.id | truncate(length=7, end="") }}](https://github.com/{{ remote.github.owner }}/{{ remote.github.repo }}/commit/{{ commit.id }}))
+{% endfor %}
+{% endfor %}\n"""
+trim = true
+render_always = false
+
+[git]
+conventional_commits = true
+filter_unconventional = true
+split_commits = false
+commit_parsers = [
+  { message = "^feat", group = "Features" },
+  { message = "^fix", group = "Bug Fixes" },
+  { message = "^perf", group = "Performance Improvements" },
+  { message = "^refactor", group = "Code Refactoring" },
+  { message = "^docs", group = "Documentation", skip = true },
+  { message = "^style", group = "Styling", skip = true },
+  { message = "^test", group = "Tests", skip = true },
+  { message = "^ci", group = "Build & CI/CD", skip = true },
+  { message = "^chore", group = "Build & CI/CD", skip = true },
+  { message = ".*", group = "Other" },
+]
+filter_commits = false
+tag_pattern = "v?[0-9].*"
+skip_tags = ""
+ignore_tags = ""
+topology_order = false
+sort_commits = "oldest"
+
+[remote.github]
+owner = "akira-io"
+repo = "laravel-qrcode"
