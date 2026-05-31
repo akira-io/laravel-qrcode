@@ -45,7 +45,7 @@ test('generates qr code with custom size', function () {
 });
 
 test('generates png format qr code', function () {
-    $qrCode = QrCode::format('png')->generate('Test');
+    $qrCode = QrCode::format('png')->generateRaw('Test');
     
     expect($qrCode)->toBeString();
     expect(strlen($qrCode))->toBeGreaterThan(0);
@@ -411,7 +411,7 @@ test('generates svg format', function () {
 });
 
 test('generates png format', function () {
-    $qrCode = QrCode::format('png')->generate('PNG Test');
+    $qrCode = QrCode::format('png')->generateRaw('PNG Test');
     
     expect($qrCode)->toBeString();
     
@@ -421,7 +421,7 @@ test('generates png format', function () {
 });
 
 test('generates eps format', function () {
-    $qrCode = QrCode::format('eps')->generate('EPS Test');
+    $qrCode = QrCode::format('eps')->generateRaw('EPS Test');
     
     expect($qrCode)->toBeString();
     expect($qrCode)->toContain('%!PS-Adobe');
@@ -464,7 +464,7 @@ test('merges logo with qr code', function () {
         ->size(500)
         ->errorCorrection('H')
         ->merge(storage_path('test-logo.png'), 0.2)
-        ->generate('With Logo');
+        ->generateRaw('With Logo');
     
     expect($qrCode)->toBeString();
     expect(strlen($qrCode))->toBeGreaterThan(0);
@@ -553,9 +553,6 @@ jobs:
 ```bash
 # Run all tests
 composer test
-
-# Run with coverage
-composer test-coverage
 
 # Run specific test
 vendor/bin/pest tests/Feature/QrCodeTest.php

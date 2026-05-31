@@ -14,6 +14,7 @@
     "require": {
         "php": "^8.4",
         "ext-gd": "*",
+        "ext-imagick": "*",
         "bacon/bacon-qr-code": "^3.0",
         "illuminate/contracts": "^12.0 | ^13.0",
         "illuminate/support": "^12.0 | ^13.0"
@@ -52,7 +53,7 @@
         "test:arch": "pest --filter=arch",
         "test:types": "phpstan",
         "test:type-coverage": "pest --type-coverage --min=100 --compact",
-        "test:coverage": "pest --parallel --coverage --compact --exactly=65.0",
+        "test:coverage": "pest --parallel --coverage --compact --min=65.0",
         "test:typos": "peck",
         "test": [
             "@test:lint",

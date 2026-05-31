@@ -275,17 +275,17 @@ QrCode::format('png')->generate('png output');
 Merge an image (logo) with the QR code.
 
 ```php
-public function merge(string $filepath, float|int $percentage, bool $absolute = false): self
+public function merge(string $filepath, ?float $percentage = null, bool $absolute = false): self
 ```
 
 **Parameters:**
 - `$filepath` (string): Path to image file
-- `$percentage` (float|int): Size as percentage (0.0-0.5) or absolute pixels
-- `$absolute` (bool): Whether to use absolute pixel size
+- `$percentage` (float|null): Logo size as a percentage from 0.0 to 1.0. Uses config when null
+- `$absolute` (bool): Whether the image path is already absolute
 
 **Returns:** Self for method chaining
 
-**Requirements:** PNG format only, ext-gd extension
+**Requirements:** PNG format for merging, ext-gd for image merging, and ext-imagick for PNG output
 
 **Example:**
 ```php
@@ -301,13 +301,12 @@ QrCode::format('png')
 Merge an image from string content.
 
 ```php
-public function mergeString(string $content, float|int $percentage, bool $absolute = false): self
+public function mergeString(string $content, ?float $percentage = null): self
 ```
 
 **Parameters:**
 - `$content` (string): Image file content
-- `$percentage` (float|int): Size as percentage or absolute pixels
-- `$absolute` (bool): Whether to use absolute pixel size
+- `$percentage` (float|null): Logo size as a percentage. Uses config when null
 
 **Returns:** Self for method chaining
 
@@ -326,7 +325,7 @@ QrCode::format('png')
 Generate the QR code.
 
 ```php
-public function generate(string $text, ?string $filename = null): HtmlString|string
+public function generate(string $text, ?string $filename = null): HtmlString|string|null
 ```
 
 **Parameters:**
@@ -334,8 +333,8 @@ public function generate(string $text, ?string $filename = null): HtmlString|str
 - `$filename` (string, optional): Path to save file
 
 **Returns:**
-- `HtmlString`: For SVG format (can be output in Blade)
-- `string`: Raw binary data for PNG/EPS
+- `HtmlString`: Display-ready output for Blade
+- `null`: When saving to a file
 
 **Example:**
 ```php
@@ -344,6 +343,29 @@ $qrCode = QrCode::generate('text');
 
 // Save to file
 QrCode::generate('text', storage_path('qr.png'));
+```
+
+---
+
+#### generateRaw()
+
+Generate raw QR code output for responses, downloads, storage, and base64 encoding.
+
+```php
+public function generateRaw(string $text, ?string $filename = null): ?string
+```
+
+**Parameters:**
+- `$text` (string): Text/data to encode
+- `$filename` (string, optional): Path to save file
+
+**Returns:**
+- `string`: Raw SVG, PNG, or EPS output
+- `null`: When saving to a file
+
+**Example:**
+```php
+$png = QrCode::format('png')->generateRaw('text');
 ```
 
 ---
@@ -651,7 +673,7 @@ try {
 ### Output Formats
 
 - `svg` - Scalable Vector Graphics
-- `png` - Portable Network Graphics (requires ext-gd)
+- `png` - Portable Network Graphics (requires ext-imagick)
 - `eps` - Encapsulated PostScript
 
 ### Module Styles

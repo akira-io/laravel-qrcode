@@ -4,7 +4,8 @@
 
 - PHP 8.4 or higher
 - Laravel 12.0 or higher
-- ext-gd extension (for PNG format and image merging)
+- ext-gd extension for image merging
+- ext-imagick extension for PNG output
 
 ## Dependencies
 

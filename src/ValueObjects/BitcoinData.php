@@ -10,19 +10,19 @@ final readonly class BitcoinData
 {
     public function __construct(
         public string $address,
-        public float $amount,
+        public ?float $amount = null,
         public ?string $label = null,
         public ?string $message = null,
         public ?string $returnAddress = null
     ) {
         throw_if($address === '' || $address === '0', InvalidArgumentException::class, 'Bitcoin address cannot be empty');
 
-        throw_if($amount <= 0, InvalidArgumentException::class, 'Bitcoin amount must be greater than 0');
+        throw_if($amount !== null && $amount <= 0, InvalidArgumentException::class, 'Bitcoin amount must be greater than 0');
     }
 
     public static function create(
         string $address,
-        float $amount,
+        ?float $amount = null,
         ?string $label = null,
         ?string $message = null,
         ?string $returnAddress = null

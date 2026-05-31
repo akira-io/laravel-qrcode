@@ -11,7 +11,7 @@ final readonly class QrCodeSize
     public function __construct(
         public int $value
     ) {
-        throw_if($value <= 0, InvalidArgumentException::class, 'QR Code size must be greater than 0');
+        throw_if($value < 10 || $value > 2000, InvalidArgumentException::class, 'QR Code size must be between 10 and 2000 pixels');
     }
 
     public static function fromInt(int $size): self
