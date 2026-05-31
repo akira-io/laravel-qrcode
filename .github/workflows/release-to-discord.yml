@@ -8,16 +8,21 @@ jobs:
   github-releases-to-discord:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
       - name: Github Releases To Discord
-        uses: SethCohen/github-releases-to-discord@v1.20.0
-        with:
-          webhook_url: ${{ secrets.DISCORD }}
-          color: "2105893"
-          username: "Larvel QrCode"
-          avatar_url: "https://avatars.githubusercontent.com/u/116525492?s=96&v=4"
-          content: "||@everyone||"
-          footer_title: "Laravel QrCode"
-          footer_icon_url: "https://avatars.githubusercontent.com/u/116525492?s=96&v=4"
-          footer_timestamp: true
+        shell: bash
+        run: |
+          payload="$(jq -n \
+            --arg content "||@everyone||" \
+            --arg username "Laravel QrCode" \
+            --arg avatarUrl "https://avatars.githubusercontent.com/u/116525492?s=96&v=4" \
+            --arg title "${{ github.event.release.name || github.event.release.tag_name }}" \
+            --arg url "${{ github.event.release.html_url }}" \
+            --arg footerTitle "Laravel QrCode" \
+            --arg footerIconUrl "https://avatars.githubusercontent.com/u/116525492?s=96&v=4" \
+            --arg timestamp "${{ github.event.release.published_at }}" \
+            '{content: $content, username: $username, avatar_url: $avatarUrl, embeds: [{title: $title, url: $url, color: 2105893, footer: {text: $footerTitle, icon_url: $footerIconUrl}, timestamp: $timestamp}]}')"
+
+          curl --fail --silent --show-error \
+            --header "Content-Type: application/json" \
+            --data "$payload" \
+            "${{ secrets.DISCORD }}"
