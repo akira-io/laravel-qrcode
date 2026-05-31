@@ -6,13 +6,13 @@ This document outlines the planned features and improvements for the Akira Larav
 
 ### Additional Data Types
 
-**vCard Support**
+**vCard Support** (implemented for v1.3.0)
 - Implement vCard QR codes for contact information
 - Based on existing DataType architecture
 - Use ValueObject pattern for contact data validation
-- Leverage DataTypeMapper for method resolution
+- Use DataTypeMapper for method resolution
 
-**Calendar Events (iCal)**
+**Calendar Events (iCal)** (implemented for v1.3.0)
 - Generate QR codes for calendar events
 - Support VEVENT format
 - Follow existing SMS/Email data type patterns

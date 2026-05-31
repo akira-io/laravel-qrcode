@@ -15,7 +15,7 @@ A clean, modern, and easy-to-use QR code generator for Laravel applications. Bui
 
 - Multiple output formats (PNG, SVG, EPS)
 - Highly customizable (colors, gradients, styles, sizes)
-- Specialized data types (WiFi, Email, Phone, SMS, Geo, Bitcoin)
+- Specialized data types (WiFi, Email, vCard, Calendar, Phone, SMS, Geo, Bitcoin)
 - Logo/image merging support
 - Type-safe with PHP 8.4+
 - PHPStan Level 9 compliant
@@ -64,6 +64,19 @@ $qrCode = QrCode::wifi([
 // Email
 $qrCode = QrCode::email('contact@example.com', 'Subject', 'Body');
 
+// Contact card
+$qrCode = QrCode::vcard([
+    'fullName' => 'Jane Doe',
+    'email' => 'jane@example.com'
+]);
+
+// Calendar event
+$qrCode = QrCode::ical([
+    'summary' => 'Release planning',
+    'startsAt' => '2026-06-01 10:00:00 UTC',
+    'endsAt' => '2026-06-01 11:00:00 UTC'
+]);
+
 // Phone
 $qrCode = QrCode::phone('+1234567890');
 
@@ -86,6 +99,8 @@ Complete documentation is available in the package website: [https://packages.ak
 |------|-------------|---------|
 | WiFi | Network credentials | `QrCode::wifi(['ssid' => 'Network', 'password' => 'pass'])` |
 | Email | mailto links | `QrCode::email('email@example.com', 'Subject', 'Body')` |
+| vCard | Contact cards | `QrCode::vcard(['fullName' => 'Jane Doe'])` |
+| Calendar | VEVENT calendar entries | `QrCode::ical(['summary' => 'Meeting', 'startsAt' => '2026-06-01 10:00:00 UTC', 'endsAt' => '2026-06-01 11:00:00 UTC'])` |
 | Phone | Direct dial | `QrCode::phone('+1234567890')` |
 | SMS | Pre-filled message | `QrCode::sms('+1234567890', 'Hello')` |
 | Geo | GPS coordinates | `QrCode::geo(37.7749, -122.4194, 'San Francisco')` |
