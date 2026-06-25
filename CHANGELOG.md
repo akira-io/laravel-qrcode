@@ -5,11 +5,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.0.0](https://github.com/akira-io/laravel-qrcode/compare/v1.2.0...v2.0.0) (2026-06-25)
 
-### Changed
+### Bug Fixes
 
-- **qrcode:** Corrected `eyeColor()` named arguments from `outterRed`, `outterGreen`, and `outterBlue` to `outerRed`, `outerGreen`, and `outerBlue`; `inner*` now maps to the internal eye color and `outer*` maps to the external eye color.
+- **deps:** Update composer security lockfile ([ebcaeda](https://github.com/akira-io/laravel-qrcode/commit/ebcaeda8fe1c9dbca0ef9d31781efddf715c07b0))
+- **deps:** Update pnpm security lockfile ([f385b2b](https://github.com/akira-io/laravel-qrcode/commit/f385b2b77dc506a8766a3634e6c8fdcc9757a6e5))
+- **qrcode:** Keep artisan command compatible with laravel 12 ([45da577](https://github.com/akira-io/laravel-qrcode/commit/45da577621cb211a4aff670800500c438ff4a1f1))
+- **qrcode:** Correct eyeColor outer parameters ([af66fad](https://github.com/akira-io/laravel-qrcode/commit/af66fad174901e5014ccdf567ad9941140537471))
+
+
+### Features
+
+- **qrcode:** Add configurable presets and themes ([4c5de5b](https://github.com/akira-io/laravel-qrcode/commit/4c5de5ba039b7c4a09bf2349532b68e341004f5a))
+- **qrcode:** Add cache-backed batch generation ([9df4cba](https://github.com/akira-io/laravel-qrcode/commit/9df4cba3126b3b03345d5c99914a62656a152483))
+- **qrcode:** Add webp and pdf output formats ([1615313](https://github.com/akira-io/laravel-qrcode/commit/1615313780b965563bfcdb54fd677f038ca5a4a0))
+- **qrcode:** Add artisan generation command ([ed72b91](https://github.com/akira-io/laravel-qrcode/commit/ed72b9139803c3e2e6f72efdbace3ea95774cbbd))
+
+
+### Other
+
+- **deps:** Bump shivammathur/setup-php ([6d4cd8f](https://github.com/akira-io/laravel-qrcode/commit/6d4cd8fef92545f5ad56917e6d44afde9d3abead))
+- **deps:** Bump actions/checkout from 6.0.2 to 6.0.3 ([2a0fdbe](https://github.com/akira-io/laravel-qrcode/commit/2a0fdbe4c4311aa49b197ed675a0b29ce0b3b22a))
+- **deps:** Bump taiki-e/install-action from 2.81.0 to 2.81.11 ([c20732e](https://github.com/akira-io/laravel-qrcode/commit/c20732eb5eece757cac40b9465905cacd524cfb2))
+- **deps-dev:** Bump pestphp/pest from 4.7.0 to 4.7.3 ([611bd75](https://github.com/akira-io/laravel-qrcode/commit/611bd7525ca3904e07eeaf5a59a3c9ab10ad315c))
+- **deps:** Bump actions/checkout from 6.0.3 to 7.0.0 ([a539814](https://github.com/akira-io/laravel-qrcode/commit/a539814561202e2e39ce6e293cdbadbba9ff387f))
+- **deps:** Bump shivammathur/setup-php from 2.37.1 to 2.37.2 ([1a93b30](https://github.com/akira-io/laravel-qrcode/commit/1a93b3035bd156d57828767c5510742bec779638))
+- **deps-dev:** Bump phpstan/phpstan from 2.1.55 to 2.2.2 ([0a3a057](https://github.com/akira-io/laravel-qrcode/commit/0a3a057923589178672aed718c7cbc27f63e3ca9))
+- **deps-dev:** Bump laravel/pint from 1.29.1 to 1.29.3 ([62403d7](https://github.com/akira-io/laravel-qrcode/commit/62403d7396912182cac3846a2fb46572ffcdfebd))
+- **deps-dev:** Bump driftingly/rector-laravel from 2.4.0 to 2.5.0 ([138cb48](https://github.com/akira-io/laravel-qrcode/commit/138cb483a7cbe57e182c94334dc198a09465cc0d))
+- **deps-dev:** Bump rector/rector from 2.4.4 to 2.5.2 ([9006771](https://github.com/akira-io/laravel-qrcode/commit/9006771440e089cbc8f6f9b7f7c1f49b403328da))
+- **deps:** Bump taiki-e/install-action from 2.81.11 to 2.82.2 ([d54163f](https://github.com/akira-io/laravel-qrcode/commit/d54163faa5651130986caa0d832a22b3a55484df))
 
 ## [1.2.0](https://github.com/akira-io/laravel-qrcode/compare/1.1.0...v1.2.0) (2026-05-31)
 
@@ -125,3 +151,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **deps:** Bump bacon/bacon-qr-code from 3.0.1 to 3.0.3 ([9da57c6](https://github.com/akira-io/laravel-qrcode/commit/9da57c61c34e35d0ae2a6d6a31bbe8c1036e5b7a))
 - **deps-dev:** Bump nunomaduro/collision from 8.8.2 to 8.8.3 ([2afd434](https://github.com/akira-io/laravel-qrcode/commit/2afd43450d22b05d3e6cf3dc5a31fdd1e17d27c4))
 - **deps-dev:** Bump laravel/pint from 1.25.1 to 1.26.0 ([dc94ead](https://github.com/akira-io/laravel-qrcode/commit/dc94eadf710456b535bc6ca5fa8d9483042b392c))
+
