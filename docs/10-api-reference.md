@@ -181,9 +181,9 @@ public function eyeColor(
     int $innerRed,
     int $innerGreen,
     int $innerBlue,
-    int $outterRed = 0,
-    int $outterGreen = 0,
-    int $outterBlue = 0
+    int $outerRed = 0,
+    int $outerGreen = 0,
+    int $outerBlue = 0
 ): self
 ```
 
@@ -192,11 +192,9 @@ public function eyeColor(
 - `$innerRed` (int): Inner square red (0-255)
 - `$innerGreen` (int): Inner square green (0-255)
 - `$innerBlue` (int): Inner square blue (0-255)
-- `$outterRed` (int, default 0): Outer square red (0-255)
-- `$outterGreen` (int, default 0): Outer square green (0-255)
-- `$outterBlue` (int, default 0): Outer square blue (0-255)
-
-> Note: the outer-color parameters are spelled `outter*` in the current implementation.
+- `$outerRed` (int, default 0): Outer square red (0-255)
+- `$outerGreen` (int, default 0): Outer square green (0-255)
+- `$outerBlue` (int, default 0): Outer square blue (0-255)
 
 **Returns:** Self for method chaining
 

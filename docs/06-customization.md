@@ -239,7 +239,7 @@ $qrCode = QrCode::eyeColor(0, 255, 0, 0)        // Eye 0: Red
 ```php
 // Eye with inner and outer colors
 $qrCode = QrCode::eyeColor(
-    eye: 0,
+    eyeNumber: 0,
     innerRed: 255,
     innerGreen: 0,
     innerBlue: 0,

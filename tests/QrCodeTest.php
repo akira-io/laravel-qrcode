@@ -70,9 +70,9 @@ test('color is passed to renderer', function (): void {
 });
 
 test('eye color is passed to renderer', function (): void {
-    $qrCode = (resolve(QrCode::class))->eyeColor(0, 0, 10, 50, 1, 8, 18);
-    $qrCode->eyeColor(1, 100, 20, 60, 2, 10, 20);
-    $qrCode->eyeColor(2, 200, 30, 70, 3, 12, 22);
+    $qrCode = (resolve(QrCode::class))->eyeColor(0, 1, 8, 18, 0, 10, 50);
+    $qrCode->eyeColor(1, 2, 10, 20, 100, 20, 60);
+    $qrCode->eyeColor(2, 3, 12, 22, 200, 30, 70);
 
     expect($qrCode->getFill()->getTopLeftEyeFill()->getExternalColor()->getRed())->toBe(0);
     expect($qrCode->getFill()->getTopRightEyeFill()->getExternalColor()->getRed())->toBe(100);
@@ -93,6 +93,25 @@ test('eye color is passed to renderer', function (): void {
     expect($qrCode->getFill()->getTopLeftEyeFill()->getInternalColor()->getBlue())->toBe(18);
     expect($qrCode->getFill()->getTopRightEyeFill()->getInternalColor()->getBlue())->toBe(20);
     expect($qrCode->getFill()->getBottomLeftEyeFill()->getInternalColor()->getBlue())->toBe(22);
+});
+
+it('accepts corrected outer color named arguments', function (): void {
+    $qrCode = (resolve(QrCode::class))->eyeColor(
+        eyeNumber: 0,
+        innerRed: 1,
+        innerGreen: 8,
+        innerBlue: 18,
+        outerRed: 0,
+        outerGreen: 10,
+        outerBlue: 50,
+    );
+
+    expect($qrCode->getFill()->getTopLeftEyeFill()->getExternalColor()->getRed())->toBe(0);
+    expect($qrCode->getFill()->getTopLeftEyeFill()->getExternalColor()->getGreen())->toBe(10);
+    expect($qrCode->getFill()->getTopLeftEyeFill()->getExternalColor()->getBlue())->toBe(50);
+    expect($qrCode->getFill()->getTopLeftEyeFill()->getInternalColor()->getRed())->toBe(1);
+    expect($qrCode->getFill()->getTopLeftEyeFill()->getInternalColor()->getGreen())->toBe(8);
+    expect($qrCode->getFill()->getTopLeftEyeFill()->getInternalColor()->getBlue())->toBe(18);
 });
 
 it('throws exception if eye color greater than 2', function (): void {

@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- **qrcode:** Corrected `eyeColor()` named arguments from `outterRed`, `outterGreen`, and `outterBlue` to `outerRed`, `outerGreen`, and `outerBlue`; `inner*` now maps to the internal eye color and `outer*` maps to the external eye color.
+
 ## [1.2.0](https://github.com/akira-io/laravel-qrcode/compare/1.1.0...v1.2.0) (2026-05-31)
 
 ### Bug Fixes
@@ -119,4 +125,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **deps:** Bump bacon/bacon-qr-code from 3.0.1 to 3.0.3 ([9da57c6](https://github.com/akira-io/laravel-qrcode/commit/9da57c61c34e35d0ae2a6d6a31bbe8c1036e5b7a))
 - **deps-dev:** Bump nunomaduro/collision from 8.8.2 to 8.8.3 ([2afd434](https://github.com/akira-io/laravel-qrcode/commit/2afd43450d22b05d3e6cf3dc5a31fdd1e17d27c4))
 - **deps-dev:** Bump laravel/pint from 1.25.1 to 1.26.0 ([dc94ead](https://github.com/akira-io/laravel-qrcode/commit/dc94eadf710456b535bc6ca5fa8d9483042b392c))
-
