@@ -13,19 +13,21 @@ A clean, modern, and easy-to-use QR code generator for Laravel applications. Bui
 
 ## Features
 
-- Multiple output formats (PNG, SVG, EPS)
+- Multiple output formats (PNG, SVG, EPS, WebP, PDF)
 - Highly customizable (colors, gradients, styles, sizes)
 - Specialized data types (WiFi, Email, vCard, Calendar, Phone, SMS, Geo, Bitcoin, Ethereum, Litecoin)
-- Logo/image merging support
+- Logo/image merging support (from a file path or string content)
+- Built-in cache-backed generation and batch generation
+- Artisan command (`qrcode:generate`) with CSV batch mode
 - Type-safe with PHP 8.4+
-- PHPStan Level 9 compliant
+- PHPStan Level 9 compliant with 100% type coverage
 - Comprehensive test coverage
 
 ## Requirements
 
 - PHP 8.4+
 - GD extension
-- Imagick extension for PNG output
+- Imagick extension for PNG, WebP, and PDF output
 - Laravel 12.0+
 
 ## Installation
@@ -99,7 +101,9 @@ $qrCode = QrCode::size(400)
 
 ## Documentation
 
-Complete documentation is available in the package website: [https://packages.akira-io.com/packages/laravel-qrcode](https://packages.akira-io.com/packages/laravel-qrcode)
+Browse the full documentation in [docs/](docs/README.md), or on the package website: [https://packages.akira-io.com/packages/laravel-qrcode](https://packages.akira-io.com/packages/laravel-qrcode)
+
+Highlights: [Installation](docs/01-installation.md) - [Configuration](docs/02-configuration.md) - [Data Types](docs/05-data-types.md) - [Customization](docs/06-customization.md) - [API Reference](docs/10-api-reference.md) - [Command Line](docs/14-cli.md)
 
 
 ## Available Data Types
@@ -127,7 +131,7 @@ Complete documentation is available in the package website: [https://packages.ak
 | Styles | Module shapes | `style('square\|dot\|round', 0-1)` |
 | Eyes | Pattern styles | `eye('square\|circle')`, `eyeColor(...)` |
 | Error Correction | Data recovery | `errorCorrection('L\|M\|Q\|H')` |
-| Formats | Output type | `format('png\|svg\|eps')` |
+| Formats | Output type | `format('png\|svg\|eps\|webp\|pdf')` |
 | Logo | Image merging | `merge('/path/to/logo.png', 0.2)` |
 
 ## Usage Examples

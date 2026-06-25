@@ -22,7 +22,7 @@ return [
     | This option controls the default format that will be used when
     | generating QR codes.
     |
-    | Supported: "png", "eps", "svg"
+    | Supported: "png", "eps", "svg", "webp", "pdf"
     |
     */
     'format' => env('QR_CODE_FORMAT', 'png'),
