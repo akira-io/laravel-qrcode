@@ -249,6 +249,25 @@ class BatchQrCodeGenerator
 }
 ```
 
+## Artisan Generation
+
+Generate one QR code from the terminal:
+
+```bash
+php artisan qrcode:generate "Ticket payload" --output=storage/app/qrcodes/ticket.svg --format=svg --size=300 --error-correction=H
+```
+
+Generate multiple QR codes from a CSV file. Each row uses `text,output`:
+
+```csv
+First payload,storage/app/qrcodes/first.svg
+Second payload,storage/app/qrcodes/second.svg
+```
+
+```bash
+php artisan qrcode:generate --batch=storage/app/qrcodes/input.csv --format=svg
+```
+
 ### Async Batch Processing
 
 ```php
