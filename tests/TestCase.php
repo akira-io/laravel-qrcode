@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use Akira\QrCode\QrCodeServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
 {
-    protected function setUp(): void
+    protected function getPackageProviders($app)
     {
-        parent::setUp();
-        // additional setup
+        return [
+            QrCodeServiceProvider::class,
+        ];
     }
 }

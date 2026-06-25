@@ -228,23 +228,20 @@ class BatchQrCodeGenerator
 {
     public function generateBatch(array $items): array
     {
-        $results = [];
-        
-        foreach ($items as $item) {
-            $qrCode = QrCode::format('png')
-                ->size(400)
-                ->generate($item['url']);
-            
-            $filename = "qrcodes/{$item['id']}.png";
-            Storage::disk('public')->put($filename, $qrCode);
-            
-            $results[] = [
-                'id' => $item['id'],
-                'path' => Storage::disk('public')->url($filename),
-            ];
-        }
-        
-        return $results;
+        return QrCode::format('png')
+            ->size(400)
+            ->batchRaw(collect($items)->pluck('url', 'id'))
+            ->map(function ($qrCode, int|string $id): array {
+                $filename = "qrcodes/{$id}.png";
+                Storage::disk('public')->put($filename, $qrCode);
+
+                return [
+                    'id' => (string) $id,
+                    'path' => Storage::disk('public')->url($filename),
+                ];
+            })
+            ->values()
+            ->all();
     }
 }
 ```
@@ -289,57 +286,35 @@ foreach ($urls as $index => $url) {
 ### Simple Caching
 
 ```php
-use Illuminate\Support\Facades\Cache;
 use Akira\QrCode\Facades\QrCode;
 
 function getCachedQrCode(string $text, int $size = 300): string
 {
-    $key = 'qrcode:' . md5($text . $size);
-    
-    return Cache::remember($key, 3600, function () use ($text, $size) {
-        return QrCode::format('png')
-            ->size($size)
-            ->generate($text);
-    });
+    return QrCode::format('png')
+        ->size($size)
+        ->cache(ttl: 3600, prefix: 'qrcode')
+        ->generateRaw($text);
 }
 ```
 
-### Cache with Tags
+The cache key includes the payload and generation options. Size, format, colors, merge data, and error correction produce separate cache entries.
+
+### Cache Key Inspection
 
 ```php
 use Illuminate\Support\Facades\Cache;
+use Akira\QrCode\Facades\QrCode;
 
-class QrCodeCache
+class QrCodeCacheInvalidator
 {
-    public function get(string $text, array $options = []): string
+    public function forget(string $text): void
     {
-        $key = $this->generateKey($text, $options);
-        
-        return Cache::tags(['qrcodes'])->remember($key, 86400, function () use ($text, $options) {
-            return $this->generate($text, $options);
-        });
-    }
-    
-    public function flush(): void
-    {
-        Cache::tags(['qrcodes'])->flush();
-    }
-    
-    private function generateKey(string $text, array $options): string
-    {
-        return 'qrcode:' . md5($text . serialize($options));
-    }
-    
-    private function generate(string $text, array $options): string
-    {
-        $qr = QrCode::format($options['format'] ?? 'png')
-            ->size($options['size'] ?? 300);
-        
-        if (isset($options['color'])) {
-            $qr->color(...$options['color']);
-        }
-        
-        return $qr->generate($text);
+        $key = QrCode::format('png')
+            ->size(300)
+            ->cache(prefix: 'qrcode')
+            ->cacheKeyFor($text);
+
+        Cache::forget($key);
     }
 }
 ```

@@ -25,6 +25,7 @@ final class QrCodeConfigDefaults
         self::applyErrorCorrection($qrCode, $config);
         self::applyColor($qrCode, $config, 'qrcode.color', 'color');
         self::applyColor($qrCode, $config, 'qrcode.background_color', 'backgroundColor');
+        self::applyCache($qrCode, $config);
     }
 
     public static function mergePercentage(float $default): float
@@ -73,6 +74,25 @@ final class QrCodeConfigDefaults
         return is_numeric($configuredValue) ? (int) $configuredValue : $default;
     }
 
+    private static function bool(ConfigRepository $config, string $key, bool $default): bool
+    {
+        $configuredValue = $config->get($key, $default);
+
+        if (is_bool($configuredValue)) {
+            return $configuredValue;
+        }
+
+        if (is_string($configuredValue)) {
+            return filter_var($configuredValue, FILTER_VALIDATE_BOOL, FILTER_NULL_ON_FAILURE) ?? $default;
+        }
+
+        if (is_numeric($configuredValue)) {
+            return (bool) $configuredValue;
+        }
+
+        return $default;
+    }
+
     private static function applyErrorCorrection(QrCode $qrCode, ConfigRepository $config): void
     {
         $errorCorrection = $config->get('qrcode.error_correction');
@@ -106,6 +126,20 @@ final class QrCodeConfigDefaults
             (int) $green,
             (int) $blue,
             is_numeric($alpha) ? (int) $alpha : null
+        );
+    }
+
+    private static function applyCache(QrCode $qrCode, ConfigRepository $config): void
+    {
+        if (! self::bool($config, 'qrcode.cache.enabled', false)) {
+            $qrCode->withoutCache();
+
+            return;
+        }
+
+        $qrCode->cache(
+            self::int($config, 'qrcode.cache.ttl', 3600),
+            self::string($config, 'qrcode.cache.prefix', 'qrcode')
         );
     }
 }
