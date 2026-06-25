@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 use Akira\QrCode\QrCode;
 use BaconQrCode\Renderer\Image\ImagickImageBackEnd;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
 it('applies configured presets', function (): void {
-    Config::set('qrcode.presets.ticket', [
+    $this->app->make(ConfigRepository::class)->set('qrcode.presets.ticket', [
         'format' => 'png',
         'size' => 512,
         'margin' => 8,
@@ -22,7 +22,7 @@ it('applies configured presets', function (): void {
 });
 
 it('allows fluent calls to override presets', function (): void {
-    Config::set('qrcode.presets.card', [
+    $this->app->make(ConfigRepository::class)->set('qrcode.presets.card', [
         'size' => 256,
         'margin' => 2,
     ]);
@@ -37,7 +37,7 @@ it('allows fluent calls to override presets', function (): void {
 });
 
 it('applies configured themes', function (): void {
-    Config::set('qrcode.themes.brand', [
+    $this->app->make(ConfigRepository::class)->set('qrcode.themes.brand', [
         'color' => [10, 20, 30, 0],
         'background_color' => [240, 241, 242, 0],
     ]);
@@ -53,7 +53,7 @@ it('throws when a preset is not configured', function (): void {
 })->throws(InvalidArgumentException::class, 'QR code preset [missing] is not configured.');
 
 it('throws when configured colors are invalid', function (): void {
-    Config::set('qrcode.themes.invalid', [
+    $this->app->make(ConfigRepository::class)->set('qrcode.themes.invalid', [
         'color' => [10],
     ]);
 
