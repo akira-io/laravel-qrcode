@@ -7,6 +7,7 @@ namespace Akira\QrCode;
 use Akira\QrCode\Actions\CreateColorAction;
 use Akira\QrCode\Actions\GenerateQrCodeAction;
 use Akira\QrCode\Actions\MergeImageAction;
+use Akira\QrCode\Concerns\AppliesConfiguredOptions;
 use Akira\QrCode\Concerns\ConfiguresQrCode;
 use Akira\QrCode\Support\DataTypeMapper;
 use Akira\QrCode\ValueObjects\ImageMergeConfig;
@@ -30,6 +31,7 @@ use Illuminate\Support\HtmlString;
  */
 final class QrCode
 {
+    use AppliesConfiguredOptions;
     use ConfiguresQrCode;
 
     private string $format = 'svg';
