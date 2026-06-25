@@ -58,6 +58,12 @@ This document outlines the planned features and improvements for the Akira Larav
 - Extend ImagickImageBackEnd class
 - Format detection in generate method
 
+**v2 Output Contract** (defined for v2.0.0)
+- Raw output from `generate()`
+- Explicit `toHtml()` display helper
+- Optional renderer dependencies
+- Migration notes in [v2 Output Contract](13-v2-output-contract.md)
+
 ### Performance
 
 **Caching Layer**
