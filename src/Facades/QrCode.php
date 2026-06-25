@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Akira\QrCode\QrCode mergeString(string $content, ?float $percentage = null)
  * @method static \Akira\QrCode\QrCode style(string $style, float $size = 0.5)
  * @method static \Akira\QrCode\QrCode eye(string $style)
- * @method static \Akira\QrCode\QrCode eyeColor(int $eyeNumber, int $innerRed, int $innerGreen, int $innerBlue, int $outterRed = 0, int $outterGreen = 0, int $outterBlue = 0)
+ * @method static \Akira\QrCode\QrCode eyeColor(int $eyeNumber, int $innerRed, int $innerGreen, int $innerBlue, int $outerRed = 0, int $outerGreen = 0, int $outerBlue = 0)
  * @method static \Akira\QrCode\QrCode gradient(int $startRed, int $startGreen, int $startBlue, int $endRed, int $endGreen, int $endBlue, string $type)
  * @method static \BaconQrCode\Renderer\Color\ColorInterface createColor(int $red, int $green, int $blue, ?int $alpha = null)
  * @method static \Akira\QrCode\QrCode cache(?int $ttl = null, ?string $prefix = null)

@@ -66,16 +66,16 @@ trait ConfiguresQrCode
         return $this;
     }
 
-    public function eyeColor(int $eyeNumber, int $innerRed, int $innerGreen, int $innerBlue, int $outterRed = 0, int $outterGreen = 0, int $outterBlue = 0): self
+    public function eyeColor(int $eyeNumber, int $innerRed, int $innerGreen, int $innerBlue, int $outerRed = 0, int $outerGreen = 0, int $outerBlue = 0): self
     {
         throw_if($eyeNumber < 0 || $eyeNumber > 2, InvalidArgumentException::class, "\$eyeNumber must be 0, 1, or 2.  {$eyeNumber} is not valid.");
 
         $innerColor = new Color($innerRed, $innerGreen, $innerBlue);
-        $outterColor = new Color($outterRed, $outterGreen, $outterBlue);
+        $outerColor = new Color($outerRed, $outerGreen, $outerBlue);
 
         $this->eyeColors[$eyeNumber] = new EyeFill(
+            $this->colorAction->handle($outerColor),
             $this->colorAction->handle($innerColor),
-            $this->colorAction->handle($outterColor)
         );
 
         return $this;

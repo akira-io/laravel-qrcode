@@ -93,6 +93,38 @@ File output should not require migration:
 QrCode::format('png')->generate('Ticket payload', storage_path('ticket.png'));
 ```
 
+### Eye Color Named Arguments
+
+Before:
+
+```php
+QrCode::eyeColor(
+    eyeNumber: 0,
+    innerRed: 255,
+    innerGreen: 0,
+    innerBlue: 0,
+    outterRed: 0,
+    outterGreen: 0,
+    outterBlue: 255,
+);
+```
+
+After:
+
+```php
+QrCode::eyeColor(
+    eyeNumber: 0,
+    innerRed: 255,
+    innerGreen: 0,
+    innerBlue: 0,
+    outerRed: 0,
+    outerGreen: 0,
+    outerBlue: 255,
+);
+```
+
+Code that used positional arguments keeps the same `inner*`, then `outer*` argument order.
+
 ## Implementation Checklist
 
 - Add `toHtml()` before changing `generate()` behavior.
