@@ -773,7 +773,7 @@ use Akira\QrCode\Facades\QrCode;
 use Akira\QrCode\ValueObjects\PhoneNumber;
 use Akira\QrCode\DataTypes\PhoneNumberDataType;
 
-$phoneNumber = PhoneNumber::create('+1234567890');
+$phoneNumber = PhoneNumber::fromString('+1234567890');
 $dataType = PhoneNumberDataType::fromValueObject($phoneNumber);
 @endphp
 

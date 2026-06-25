@@ -31,6 +31,15 @@ use Throwable;
  * @method $this geo(float $latitude, float $longitude, ?string $name = null)
  * @method $this bitcoin(string $address, ?float $amount = null, array<string, mixed> $options = [])
  * @method $this btc(string $address, ?float $amount = null, array<string, mixed> $options = [])
+ * @method $this ethereum(string $address, int|float|string|null $value = null, array<string, mixed> $options = [])
+ * @method $this eth(string $address, int|float|string|null $value = null, array<string, mixed> $options = [])
+ * @method $this litecoin(string $address, float $amount = 0.0, array<string, mixed> $options = [])
+ * @method $this ltc(string $address, float $amount = 0.0, array<string, mixed> $options = [])
+ * @method $this vcard(array<string, mixed> $contact)
+ * @method $this contact(array<string, mixed> $contact)
+ * @method $this calendar(array<string, mixed> $event)
+ * @method $this ical(array<string, mixed> $event)
+ * @method $this event(array<string, mixed> $event)
  */
 final class QrCode
 {

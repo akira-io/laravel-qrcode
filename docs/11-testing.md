@@ -220,54 +220,54 @@ test('product qr code is cached', function () {
 });
 ```
 
-## Mocking
+## Testing Without Mocks
 
-### Mocking QrCode Facade
+This package - and its own test suite - does not use mocks or spies. Generation is fast, deterministic, and has no external dependencies, so tests run against the real Laravel container and the real renderer. Assert on the actual output or, for logic-level checks, on the encoded payload.
+
+### Assert on real output
 
 ```php
 use Akira\QrCode\Facades\QrCode;
+use Illuminate\Support\HtmlString;
 
-test('mocks qr code generation', function () {
-    QrCode::shouldReceive('generate')
-        ->once()
-        ->with('Test')
-        ->andReturn('mocked-qr-code');
-    
-    $result = QrCode::generate('Test');
-    
-    expect($result)->toBe('mocked-qr-code');
+test('generates real svg output', function () {
+    $result = QrCode::format('svg')->size(300)->generate('Test');
+
+    expect($result)->toBeInstanceOf(HtmlString::class)
+        ->and((string) $result)->toContain('<svg');
 });
 
-test('mocks qr code with size', function () {
-    QrCode::shouldReceive('size')
-        ->once()
-        ->with(300)
-        ->andReturnSelf();
-    
-    QrCode::shouldReceive('generate')
-        ->once()
-        ->with('Test')
-        ->andReturn('mocked');
-    
-    QrCode::size(300)->generate('Test');
+test('generates real png bytes', function () {
+    $png = QrCode::format('png')->generateRaw('Test');
+
+    expect($png)->toBeString()->not->toBe('');
 });
 ```
 
-### Mocking Actions
+### Assert on the payload, not the image
+
+When you only care about the encoded data, build the action directly (it is a stateless `handle()` call) or use `QrCodePayloadAssertions` (see [Testing Payloads](#testing-payloads)):
 
 ```php
 use Akira\QrCode\Actions\BuildWiFiStringAction;
-use Mockery;
+use Akira\QrCode\ValueObjects\WiFiData;
 
-test('mocks wifi string action', function () {
-    $mockAction = Mockery::mock(BuildWiFiStringAction::class);
-    $mockAction->shouldReceive('handle')
-        ->once()
-        ->andReturn('WIFI:T:WPA;S:Test;P:pass;;');
-    
-    $this->app->instance(BuildWiFiStringAction::class, $mockAction);
-    
-    // Test code that uses the action
+test('builds the expected wifi payload', function () {
+    $payload = (new BuildWiFiStringAction)->handle(
+        WiFiData::create('Test', 'pass')
+    );
+
+    expect($payload)->toBe('WIFI:T:WPA;S:Test;P:pass;;');
+});
+```
+
+### Swap collaborators via the container
+
+If a test genuinely needs a substitute (for example a fake that records calls), bind a real fake implementation through the container rather than a mock object:
+
+```php
+$this->app->instance(BuildWiFiStringAction::class, new class extends BuildWiFiStringAction {
+    // override handle() with a deterministic fake if needed
 });
 ```
 
@@ -565,7 +565,7 @@ jobs:
 ## Best Practices
 
 1. **Test both success and failure cases**
-2. **Mock external dependencies**
+2. **Use the real container - no mocks or spies** (use fakes for external services)
 3. **Test all data types and their validations**
 4. **Verify QR code format and structure**
 5. **Test performance with large datasets**
@@ -582,7 +582,7 @@ jobs:
 composer test
 
 # Run specific test
-vendor/bin/pest tests/Feature/QrCodeTest.php
+vendor/bin/pest tests/QrCodeTest.php
 
 # Run with filter
 vendor/bin/pest --filter=wifi
