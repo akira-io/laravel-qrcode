@@ -128,4 +128,41 @@ return [
         'ttl' => (int) env('QR_CODE_CACHE_TTL', 3600),
         'prefix' => env('QR_CODE_CACHE_PREFIX', 'qrcode'),
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Presets
+    |--------------------------------------------------------------------------
+    |
+    | These presets provide reusable QR code option groups that can be applied
+    | before fluent per-code overrides.
+    |
+    */
+    'presets' => [
+        'print' => [
+            'format' => 'png',
+            'size' => 600,
+            'margin' => 4,
+            'error_correction' => 'H',
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Themes
+    |--------------------------------------------------------------------------
+    |
+    | These themes provide reusable foreground and background color sets.
+    |
+    */
+    'themes' => [
+        'light' => [
+            'color' => [0, 0, 0, 0],
+            'background_color' => [255, 255, 255, 0],
+        ],
+        'dark' => [
+            'color' => [255, 255, 255, 0],
+            'background_color' => [17, 24, 39, 0],
+        ],
+    ],
 ];

@@ -82,7 +82,7 @@ final readonly class WiFiData
 
 ### 2. Actions
 
-Single-responsibility classes containing one unit of business logic. Each action exposes a `handle()` method (per the project standard — never `execute()`).
+Single-responsibility classes containing one unit of business logic. Each action exposes a `handle()` method (per the project standard - never `execute()`).
 
 **Characteristics:**
 - Single `handle()` method
@@ -303,7 +303,7 @@ Each class has one reason to change: value objects own data shape, actions own o
 
 ### Open/Closed
 
-New data types are added by creating a value object, a builder action, and a data type, then wiring a mapper case — without modifying existing types.
+New data types are added by creating a value object, a builder action, and a data type, then wiring a mapper case - without modifying existing types.
 
 ### Liskov Substitution
 

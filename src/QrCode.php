@@ -7,6 +7,7 @@ namespace Akira\QrCode;
 use Akira\QrCode\Actions\CreateColorAction;
 use Akira\QrCode\Actions\GenerateQrCodeAction;
 use Akira\QrCode\Actions\MergeImageAction;
+use Akira\QrCode\Concerns\AppliesConfiguredOptions;
 use Akira\QrCode\Concerns\BatchesQrCodes;
 use Akira\QrCode\Concerns\ConfiguresQrCode;
 use Akira\QrCode\Support\DataTypeMapper;
@@ -43,6 +44,7 @@ use Throwable;
  */
 final class QrCode
 {
+    use AppliesConfiguredOptions;
     use BatchesQrCodes;
     use ConfiguresQrCode;
 

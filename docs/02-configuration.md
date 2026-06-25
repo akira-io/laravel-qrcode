@@ -142,6 +142,50 @@ Controls cache-backed QR code generation. When enabled, `generate()` and `genera
 
 Caching only applies when generating in-memory output. Writes to a file path (`generate($text, $filename)`) always bypass the cache. The cache can also be toggled per call with the `cache()` and `withoutCache()` builder methods - see [Advanced Features](07-advanced-features.md#caching-strategies).
 
+### Presets
+
+Presets group rendering options under a reusable name:
+
+```php
+'presets' => [
+    'print' => [
+        'format' => 'png',
+        'size' => 600,
+        'margin' => 4,
+        'error_correction' => 'H',
+    ],
+],
+```
+
+Use a preset before any fluent overrides:
+
+```php
+$qrCode = QrCode::preset('print')
+    ->size(800)
+    ->generate('Print payload');
+```
+
+### Themes
+
+Themes group foreground and background colors:
+
+```php
+'themes' => [
+    'dark' => [
+        'color' => [255, 255, 255, 0],
+        'background_color' => [17, 24, 39, 0],
+    ],
+],
+```
+
+Apply a theme with the fluent API:
+
+```php
+$qrCode = QrCode::theme('dark')
+    ->format('svg')
+    ->generate('Themed payload');
+```
+
 ## Environment Variables
 
 Configure defaults in your `.env` file:
