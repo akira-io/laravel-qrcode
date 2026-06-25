@@ -9,17 +9,19 @@ use Illuminate\Console\Command;
 use InvalidArgumentException;
 use Throwable;
 
-#[\Illuminate\Console\Attributes\Description('Generate QR code files from terminal input.')]
-#[\Illuminate\Console\Attributes\Signature('qrcode:generate
-    {text? : Text payload to encode}
-    {--output= : Output file path}
-    {--format=png : Output format}
-    {--size=200 : QR code size}
-    {--margin=4 : QR code margin}
-    {--error-correction=H : Error correction level}
-    {--batch= : CSV file with text and output columns}')]
 final class GenerateQrCodeCommand extends Command
 {
+    protected $signature = 'qrcode:generate
+        {text? : Text payload to encode}
+        {--output= : Output file path}
+        {--format=png : Output format}
+        {--size=200 : QR code size}
+        {--margin=4 : QR code margin}
+        {--error-correction=H : Error correction level}
+        {--batch= : CSV file with text and output columns}';
+
+    protected $description = 'Generate QR code files from terminal input.';
+
     public function handle(QrCode $qrCode): int
     {
         try {
