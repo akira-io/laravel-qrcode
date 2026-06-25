@@ -259,7 +259,7 @@ public function format(string $format): self
 ```
 
 **Parameters:**
-- `$format` (string): Output format - 'png', 'svg', 'eps'
+- `$format` (string): Output format - 'png', 'svg', 'eps', 'webp', 'pdf'
 
 **Returns:** Self for method chaining
 

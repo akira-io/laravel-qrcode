@@ -30,6 +30,8 @@ Controls the default output format for QR codes.
 - `png` - PNG image format (requires ext-imagick)
 - `svg` - SVG vector format
 - `eps` - Encapsulated PostScript format
+- `webp` - WebP image format (requires Imagick WebP support)
+- `pdf` - PDF document format (requires Imagick PDF support)
 
 ### Size
 
@@ -197,6 +199,8 @@ $qrCode = QrCode::size(300)
 - PNG: For web display, email, and raster graphics
 - SVG: For scaling, print, and vector graphics
 - EPS: For professional printing and design software
+- WebP: For modern web delivery when browser support is acceptable
+- PDF: For document workflows that need a standalone QR code page
 
 ## Cache Configuration
 
