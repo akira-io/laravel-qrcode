@@ -22,7 +22,7 @@ return [
     | This option controls the default format that will be used when
     | generating QR codes.
     |
-    | Supported: "png", "eps", "svg"
+    | Supported: "png", "eps", "svg", "webp", "pdf"
     |
     */
     'format' => env('QR_CODE_FORMAT', 'png'),
@@ -113,6 +113,20 @@ return [
     'merge' => [
         'percentage' => env('QR_CODE_MERGE_PERCENTAGE', 0.2),
         'absolute' => env('QR_CODE_MERGE_ABSOLUTE', false),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cache Options
+    |--------------------------------------------------------------------------
+    |
+    | These options control cache-backed QR code generation.
+    |
+    */
+    'cache' => [
+        'enabled' => filter_var(env('QR_CODE_CACHE_ENABLED', false), FILTER_VALIDATE_BOOL),
+        'ttl' => (int) env('QR_CODE_CACHE_TTL', 3600),
+        'prefix' => env('QR_CODE_CACHE_PREFIX', 'qrcode'),
     ],
 
     /*

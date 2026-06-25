@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Akira\QrCode;
 
+use Akira\QrCode\Commands\GenerateQrCodeCommand;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\ServiceProvider;
 
@@ -18,6 +19,10 @@ final class QrCodeServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        $this->commands([
+            GenerateQrCodeCommand::class,
+        ]);
+
         $this->publishes([
             __DIR__.'/../config/qrcode.php' => config_path('qrcode.php'),
         ], 'qrcode-config');

@@ -141,6 +141,22 @@ Encapsulated PostScript for professional printing:
 $qrCode = QrCode::format('eps')->generate('EPS QR Code');
 ```
 
+### WebP
+
+Modern raster format, requires Imagick with WebP support:
+
+```php
+$qrCode = QrCode::format('webp')->generateRaw('WebP QR Code');
+```
+
+### PDF
+
+Standalone PDF document, requires Imagick with PDF support:
+
+```php
+$qrCode = QrCode::format('pdf')->generateRaw('PDF QR Code');
+```
+
 ## Combining Settings
 
 Chain multiple methods together:
@@ -395,14 +411,31 @@ $qrCode = QrCode::encoding('Shift_JIS')->generate('Japanese text');
 
 ### Caching QR Codes
 
-```php
-use Illuminate\Support\Facades\Cache;
+The package caches generation output natively. Opt in per call with `cache()`, or enable it globally via `config('qrcode.cache')`:
 
-$qrCode = Cache::remember('qr:' . md5($text), 3600, function () use ($text) {
-    return QrCode::format('png')
-        ->size(300)
-        ->generate($text);
-});
+```php
+$qrCode = QrCode::format('png')
+    ->size(300)
+    ->cache(ttl: 3600)
+    ->generate($text);
+```
+
+The cache key is derived from the text plus every styling option, so any change produces a distinct entry. Use `withoutCache()` to bypass the cache for a single call when caching is enabled globally. See [Advanced Features](07-advanced-features.md#caching-strategies) for details.
+
+### Batch Generation
+
+Generate many QR codes from one configured builder. Keys are preserved:
+
+```php
+$codes = QrCode::format('svg')
+    ->size(200)
+    ->batch([
+        'home' => 'https://example.com',
+        'docs' => 'https://example.com/docs',
+    ]);
+
+// Raw string output instead of HtmlString
+$pngs = QrCode::format('png')->batchRaw(['a', 'b', 'c']);
 ```
 
 ### Storing QR Codes
@@ -412,9 +445,21 @@ use Illuminate\Support\Facades\Storage;
 
 $qrCode = QrCode::format('png')
     ->size(400)
-    ->generate($text);
+    ->generateRaw($text);
 
 Storage::disk('public')->put('qrcodes/example.png', $qrCode);
+```
+
+### Merging a Logo from String Content
+
+When the logo is not on disk (for example fetched remotely or stored in the database), use `mergeString()`:
+
+```php
+$logo = Storage::disk('public')->get('logo.png');
+
+$qrCode = QrCode::format('png')
+    ->mergeString($logo, 0.25)
+    ->generate($url);
 ```
 
 ### Responsive QR Codes

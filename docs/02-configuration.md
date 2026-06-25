@@ -30,6 +30,8 @@ Controls the default output format for QR codes.
 - `png` - PNG image format (requires ext-imagick)
 - `svg` - SVG vector format
 - `eps` - Encapsulated PostScript format
+- `webp` - WebP image format (requires Imagick WebP support)
+- `pdf` - PDF document format (requires Imagick PDF support)
 
 ### Size
 
@@ -122,6 +124,24 @@ Options for merging images (logos) with QR codes:
 - `percentage` - Logo size as percentage of QR code (0.0 - 1.0)
 - `absolute` - Treat the image path as an absolute path
 
+### Cache Options
+
+Controls cache-backed QR code generation. When enabled, `generate()` and `generateRaw()` store their output in Laravel's cache keyed by the full builder configuration, so identical requests are served without re-rendering.
+
+```php
+'cache' => [
+    'enabled' => filter_var(env('QR_CODE_CACHE_ENABLED', false), FILTER_VALIDATE_BOOL),
+    'ttl' => (int) env('QR_CODE_CACHE_TTL', 3600),
+    'prefix' => env('QR_CODE_CACHE_PREFIX', 'qrcode'),
+],
+```
+
+- `enabled` - When `true`, every generation is cached by default (boolean, default `false`)
+- `ttl` - Cache lifetime in seconds (default `3600`)
+- `prefix` - Prefix for the generated cache keys (default `qrcode`)
+
+Caching only applies when generating in-memory output. Writes to a file path (`generate($text, $filename)`) always bypass the cache. The cache can also be toggled per call with the `cache()` and `withoutCache()` builder methods - see [Advanced Features](07-advanced-features.md#caching-strategies).
+
 ### Presets
 
 Presets group rendering options under a reusable name:
@@ -195,6 +215,11 @@ QR_CODE_ENCODING=UTF-8
 # Image merging
 QR_CODE_MERGE_PERCENTAGE=0.2
 QR_CODE_MERGE_ABSOLUTE=false
+
+# Caching
+QR_CODE_CACHE_ENABLED=false
+QR_CODE_CACHE_TTL=3600
+QR_CODE_CACHE_PREFIX=qrcode
 ```
 
 ## Runtime Configuration
@@ -241,20 +266,27 @@ $qrCode = QrCode::size(300)
 - PNG: For web display, email, and raster graphics
 - SVG: For scaling, print, and vector graphics
 - EPS: For professional printing and design software
+- WebP: For modern web delivery when browser support is acceptable
+- PDF: For document workflows that need a standalone QR code page
 
 ## Cache Configuration
 
-For production environments, consider caching generated QR codes:
+The package ships with built-in caching. Enable it globally via the `cache` config block (or the `QR_CODE_CACHE_*` env vars above), or opt in per call:
 
 ```php
-use Illuminate\Support\Facades\Cache;
+use Akira\QrCode\Facades\QrCode;
 
-$qrCode = Cache::remember('qrcode:' . md5($data), 3600, function () use ($data) {
-    return QrCode::format('png')
-        ->size(300)
-        ->generate($data);
-});
+// Per-call: cache this result for one hour under the "reports" prefix
+$svg = QrCode::format('svg')
+    ->size(300)
+    ->cache(ttl: 3600, prefix: 'reports')
+    ->generate($data);
+
+// Force a fresh render even when caching is enabled globally
+$fresh = QrCode::cache()->withoutCache()->generate($data);
 ```
+
+The cache key is derived from the text plus every styling option (size, margin, colors, gradient, eye styling, merged logo, ...), so changing any option produces a distinct cached entry. Inspect the computed key with `QrCode::cacheKeyFor($text)`. See [Advanced Features](07-advanced-features.md#caching-strategies) for batch caching and key details.
 
 ## Performance Tips
 

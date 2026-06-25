@@ -43,7 +43,7 @@ trait ConfiguresQrCode
 
     public function format(string $format): self
     {
-        throw_unless(in_array($format, ['svg', 'eps', 'png']), InvalidArgumentException::class, "\$format must be svg, eps, or png. {$format} is not a valid.");
+        throw_unless(in_array($format, ['svg', 'eps', 'png', 'webp', 'pdf'], true), InvalidArgumentException::class, "\$format must be svg, eps, png, webp, or pdf. {$format} is not a valid.");
 
         $this->format = $format;
 
@@ -160,8 +160,8 @@ trait ConfiguresQrCode
 
     public function getFormatter(): ImageBackEndInterface
     {
-        if ($this->format === 'png') {
-            return new ImagickImageBackEnd('png');
+        if (in_array($this->format, ['png', 'webp', 'pdf'], true)) {
+            return new ImagickImageBackEnd($this->format);
         }
 
         if ($this->format === 'eps') {

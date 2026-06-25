@@ -107,7 +107,7 @@ public function gradient(
     int $endRed,
     int $endGreen,
     int $endBlue,
-    string $type = 'VERTICAL'
+    string $type
 ): self
 ```
 
@@ -118,7 +118,7 @@ public function gradient(
 - `$endRed` (int): End color red (0-255)
 - `$endGreen` (int): End color green (0-255)
 - `$endBlue` (int): End color blue (0-255)
-- `$type` (string): Gradient type - 'VERTICAL', 'HORIZONTAL', 'DIAGONAL', 'RADIAL'
+- `$type` (string): Gradient type - required. One of 'VERTICAL', 'HORIZONTAL', 'DIAGONAL', 'RADIAL' (case-insensitive; normalized to uppercase internally)
 
 **Returns:** Self for method chaining
 
@@ -177,24 +177,26 @@ Set individual eye colors.
 
 ```php
 public function eyeColor(
-    int $eye,
+    int $eyeNumber,
     int $innerRed,
     int $innerGreen,
     int $innerBlue,
-    ?int $outerRed = null,
-    ?int $outerGreen = null,
-    ?int $outerBlue = null
+    int $outterRed = 0,
+    int $outterGreen = 0,
+    int $outterBlue = 0
 ): self
 ```
 
 **Parameters:**
-- `$eye` (int): Eye index (0, 1, or 2)
+- `$eyeNumber` (int): Eye index (0, 1, or 2)
 - `$innerRed` (int): Inner square red (0-255)
 - `$innerGreen` (int): Inner square green (0-255)
 - `$innerBlue` (int): Inner square blue (0-255)
-- `$outerRed` (int, optional): Outer square red (0-255)
-- `$outerGreen` (int, optional): Outer square green (0-255)
-- `$outerBlue` (int, optional): Outer square blue (0-255)
+- `$outterRed` (int, default 0): Outer square red (0-255)
+- `$outterGreen` (int, default 0): Outer square green (0-255)
+- `$outterBlue` (int, default 0): Outer square blue (0-255)
+
+> Note: the outer-color parameters are spelled `outter*` in the current implementation.
 
 **Returns:** Self for method chaining
 
@@ -202,6 +204,29 @@ public function eyeColor(
 ```php
 QrCode::eyeColor(0, 255, 0, 0)->generate('red eye 0');
 QrCode::eyeColor(1, 255, 0, 0, 0, 0, 255)->generate('red inner, blue outer');
+```
+
+---
+
+#### createColor()
+
+Build a Bacon color instance from RGBA components. Useful when constructing colors for lower-level rendering or tests.
+
+```php
+public function createColor(int $red, int $green, int $blue, ?int $alpha = null): \BaconQrCode\Renderer\Color\ColorInterface
+```
+
+**Parameters:**
+- `$red` (int): Red component (0-255)
+- `$green` (int): Green component (0-255)
+- `$blue` (int): Blue component (0-255)
+- `$alpha` (int|null, optional): Alpha transparency (0-127)
+
+**Returns:** A `BaconQrCode\Renderer\Color\ColorInterface` (an `Rgb` or `Alpha` color)
+
+**Example:**
+```php
+$color = qrcode()->createColor(255, 0, 0);
 ```
 
 ---
@@ -259,7 +284,7 @@ public function format(string $format): self
 ```
 
 **Parameters:**
-- `$format` (string): Output format - 'png', 'svg', 'eps'
+- `$format` (string): Output format - 'png', 'svg', 'eps', 'webp', 'pdf'
 
 **Returns:** Self for method chaining
 
@@ -333,7 +358,8 @@ public function generate(string $text, ?string $filename = null): HtmlString|str
 - `$filename` (string, optional): Path to save file
 
 **Returns:**
-- `HtmlString`: Display-ready output for Blade
+- `HtmlString`: Display-ready output for inline formats (SVG)
+- `string`: Raw output for binary formats (PNG, WebP, PDF, EPS)
 - `null`: When saving to a file
 
 **Example:**
@@ -360,12 +386,113 @@ public function generateRaw(string $text, ?string $filename = null): ?string
 - `$filename` (string, optional): Path to save file
 
 **Returns:**
-- `string`: Raw SVG, PNG, or EPS output
+- `string`: Raw SVG, PNG, WebP, PDF, or EPS output
 - `null`: When saving to a file
 
 **Example:**
 ```php
 $png = QrCode::format('png')->generateRaw('text');
+```
+
+---
+
+#### cache()
+
+Enable cache-backed generation for this builder. Output is stored in Laravel's cache keyed by the full configuration.
+
+```php
+public function cache(?int $ttl = null, ?string $prefix = null): self
+```
+
+**Parameters:**
+- `$ttl` (int|null, optional): Cache lifetime in seconds. Falls back to the configured TTL when null. Must be greater than 0 or an `InvalidArgumentException` is thrown
+- `$prefix` (string|null, optional): Cache key prefix. Falls back to the configured prefix when null
+
+**Returns:** Self for method chaining
+
+**Example:**
+```php
+QrCode::cache(ttl: 3600, prefix: 'reports')->generate('text');
+```
+
+---
+
+#### withoutCache()
+
+Disable caching for this builder, even when caching is enabled globally in config.
+
+```php
+public function withoutCache(): self
+```
+
+**Returns:** Self for method chaining
+
+**Example:**
+```php
+QrCode::cache()->withoutCache()->generate('always fresh');
+```
+
+---
+
+#### cacheKeyFor()
+
+Return the cache key that would be used for the given text under the current configuration.
+
+```php
+public function cacheKeyFor(string $text): string
+```
+
+**Parameters:**
+- `$text` (string): Text/data that would be encoded
+
+**Returns:** The fully-qualified cache key string (`{prefix}:{sha256}`)
+
+**Example:**
+```php
+$key = QrCode::size(300)->cacheKeyFor('text');
+```
+
+---
+
+#### batch()
+
+Generate display-ready output for many payloads using the same configured builder.
+
+```php
+public function batch(iterable $texts): \Illuminate\Support\Collection
+```
+
+**Parameters:**
+- `$texts` (iterable<int|string, string>): The payloads to encode
+
+**Returns:** `Collection<int|string, HtmlString|string|null>`, preserving input keys
+
+**Example:**
+```php
+$codes = QrCode::format('svg')->size(200)->batch([
+    'home' => 'https://example.com',
+    'docs' => 'https://example.com/docs',
+]);
+```
+
+---
+
+#### batchRaw()
+
+Same as `batch()` but returns raw string output for each payload.
+
+```php
+public function batchRaw(iterable $texts): \Illuminate\Support\Collection
+```
+
+**Parameters:**
+- `$texts` (iterable<int|string, string>): The payloads to encode
+
+**Returns:** `Collection<int|string, string|null>`
+
+**Example:**
+```php
+$pngs = QrCode::format('png')->batchRaw(['a', 'b', 'c']);
 ```
 
 ---
@@ -377,17 +504,17 @@ $png = QrCode::format('png')->generateRaw('text');
 ```php
 WiFiData::create(
     string $ssid,
-    string $password,
-    string $encryption = 'WPA',
-    bool $hidden = false
+    ?string $password = null,
+    bool $hidden = false,
+    string $encryption = 'WPA'
 ): self
 ```
 
 **Properties:**
-- `ssid` (string): Network name
-- `password` (string): Network password
-- `encryption` (string): 'WPA', 'WEP', or 'nopass'
+- `ssid` (string): Network name (cannot be empty)
+- `password` (string|null): Network password
 - `hidden` (bool): Whether network is hidden
+- `encryption` (string): 'WPA', 'WEP', or 'nopass' (normalized at construction)
 
 ---
 
@@ -395,23 +522,27 @@ WiFiData::create(
 
 ```php
 EmailData::create(
-    string $email,
+    string $address,
     ?string $subject = null,
-    ?string $body = null
+    ?string $body = null,
+    ?string $cc = null,
+    ?string $bcc = null
 ): self
 ```
 
 **Properties:**
-- `email` (string): Email address
+- `address` (string): Email address
 - `subject` (string|null): Email subject
 - `body` (string|null): Email body
+- `cc` (string|null): Carbon copy address
+- `bcc` (string|null): Blind carbon copy address
 
 ---
 
 ### PhoneNumber
 
 ```php
-PhoneNumber::create(string $number): self
+PhoneNumber::fromString(string $number): self
 ```
 
 **Properties:**
@@ -424,13 +555,13 @@ PhoneNumber::create(string $number): self
 ```php
 SMSData::create(
     string $phoneNumber,
-    string $message
+    ?string $message = null
 ): self
 ```
 
 **Properties:**
 - `phoneNumber` (string): Recipient phone number
-- `message` (string): SMS text
+- `message` (string|null): SMS text
 
 ---
 
@@ -439,13 +570,15 @@ SMSData::create(
 ```php
 GeoLocation::create(
     float $latitude,
-    float $longitude
+    float $longitude,
+    ?string $name = null
 ): self
 ```
 
 **Properties:**
 - `latitude` (float): Latitude coordinate
 - `longitude` (float): Longitude coordinate
+- `name` (string|null): Optional location label
 
 ---
 
@@ -456,7 +589,8 @@ BitcoinData::create(
     string $address,
     ?float $amount = null,
     ?string $label = null,
-    ?string $message = null
+    ?string $message = null,
+    ?string $returnAddress = null
 ): self
 ```
 
@@ -465,6 +599,86 @@ BitcoinData::create(
 - `amount` (float|null): Amount in BTC
 - `label` (string|null): Payment label
 - `message` (string|null): Payment message
+- `returnAddress` (string|null): Return address
+
+---
+
+### EthereumData
+
+```php
+EthereumData::create(
+    string $address,
+    ?string $value = null,
+    ?int $chainId = null,
+    ?string $label = null,
+    ?string $message = null
+): self
+```
+
+**Properties:**
+- `address` (string): Ethereum address
+- `value` (string|null): Amount in wei (string to preserve precision)
+- `chainId` (int|null): EIP-155 chain id
+- `label` (string|null): Payment label
+- `message` (string|null): Payment message
+
+---
+
+### LitecoinData
+
+```php
+LitecoinData::create(
+    string $address,
+    float $amount = 0.0,
+    ?string $label = null,
+    ?string $message = null
+): self
+```
+
+**Properties:**
+- `address` (string): Litecoin address
+- `amount` (float): Amount in LTC
+- `label` (string|null): Payment label
+- `message` (string|null): Payment message
+
+---
+
+### VCardData
+
+```php
+VCardData::create(
+    string $fullName,
+    ?string $firstName = null,
+    ?string $lastName = null,
+    ?string $organization = null,
+    ?string $title = null,
+    ?string $phone = null,
+    ?string $email = null,
+    ?string $url = null,
+    ?string $address = null,
+    ?string $note = null
+): self
+```
+
+**Properties:** `fullName` is required; all other fields are optional. `email` and `url` are validated when provided.
+
+---
+
+### CalendarEventData
+
+```php
+CalendarEventData::create(
+    string $summary,
+    DateTimeInterface $startsAt,
+    DateTimeInterface $endsAt,
+    ?string $location = null,
+    ?string $description = null,
+    ?string $uniqueId = null,
+    ?DateTimeInterface $timestamp = null
+): self
+```
+
+**Properties:** `summary` is required and `endsAt` must be after `startsAt`. `timestamp` defaults to the current time when null.
 
 ---
 
@@ -536,6 +750,50 @@ BitcoinDataType::fromValueObject(BitcoinData $data): self
 
 ---
 
+### EthereumDataType
+
+```php
+EthereumDataType::fromValueObject(EthereumData $data): self
+```
+
+**Methods:**
+- `__toString()`: Returns ethereum: URI
+
+---
+
+### LitecoinDataType
+
+```php
+LitecoinDataType::fromValueObject(LitecoinData $data): self
+```
+
+**Methods:**
+- `__toString()`: Returns litecoin: URI
+
+---
+
+### VCardDataType
+
+```php
+VCardDataType::fromValueObject(VCardData $data): self
+```
+
+**Methods:**
+- `__toString()`: Returns the vCard text block
+
+---
+
+### CalendarEventDataType
+
+```php
+CalendarEventDataType::fromValueObject(CalendarEventData $data): self
+```
+
+**Methods:**
+- `__toString()`: Returns the iCalendar (VEVENT) text block
+
+---
+
 ## Facade
 
 ### QrCode Facade
@@ -558,15 +816,15 @@ QrCode::size(300)->generate('text');
 ### qrcode()
 
 ```php
-qrcode(?string $text = null): QrCode|string
+qrcode(?string $text = null): QrCode|HtmlString|string|null
 ```
 
 **Parameters:**
 - `$text` (string|null): Optional text to generate immediately
 
 **Returns:**
-- `QrCode`: Instance if no text provided
-- `string`: Generated QR code if text provided
+- `QrCode`: Instance when no text is provided
+- `HtmlString|string|null`: The generated QR code when text is provided (an `HtmlString` for SVG, a raw `string` for binary formats)
 
 **Examples:**
 ```php
@@ -589,18 +847,14 @@ $qrCode = qrcode()->size(300)->generate('Hello');
 Interface for custom data types.
 
 ```php
-interface QrCodeDataTypeContract
-{
-    public function __toString(): string;
-}
+interface QrCodeDataTypeContract extends Stringable {}
 ```
 
-**Methods:**
-- `__toString()`: Convert data type to string for QR encoding
+The contract adds nothing beyond PHP's `Stringable`, so implementations only need a `__toString()` method that returns the encoded payload.
 
 **Example Implementation:**
 ```php
-class CustomDataType implements QrCodeDataTypeContract
+final readonly class CustomDataType implements QrCodeDataTypeContract
 {
     public function __toString(): string
     {
@@ -617,7 +871,8 @@ class CustomDataType implements QrCodeDataTypeContract
 
 Access via `config('qrcode.key')`:
 
-- `format` (string): Default format ('png', 'svg', 'eps')
+- `default_data` (string): Fallback payload when none is provided
+- `format` (string): Default format ('png', 'svg', 'eps', 'webp', 'pdf')
 - `size` (int): Default size in pixels
 - `margin` (int): Default margin
 - `color` (array): Default foreground color [R, G, B, A]
@@ -625,7 +880,10 @@ Access via `config('qrcode.key')`:
 - `error_correction` (string): Default error correction level
 - `encoding` (string): Default character encoding
 - `merge.percentage` (float): Default logo size percentage
-- `merge.absolute` (bool): Use absolute logo size
+- `merge.absolute` (bool): Use absolute logo path
+- `cache.enabled` (bool): Cache generation output by default
+- `cache.ttl` (int): Cache lifetime in seconds
+- `cache.prefix` (string): Cache key prefix
 
 ---
 
@@ -639,8 +897,9 @@ Registers the package services.
 - Configuration: `php artisan vendor:publish --tag="qrcode-config"`
 
 **Registered:**
-- Singleton: `QrCode::class`
-- Facade: `QrCode`
+- Container binding: `qrcode` resolves a fresh `QrCode` instance
+- Facade: `QrCode` (accessor clears the resolved instance on each call)
+- Artisan command: `qrcode:generate` (see [CLI](14-cli.md))
 
 ---
 
@@ -675,6 +934,8 @@ try {
 - `svg` - Scalable Vector Graphics
 - `png` - Portable Network Graphics (requires ext-imagick)
 - `eps` - Encapsulated PostScript
+- `webp` - WebP image (requires Imagick WebP support)
+- `pdf` - PDF document (requires Imagick PDF support)
 
 ### Module Styles
 
