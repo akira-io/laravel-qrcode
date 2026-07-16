@@ -20,6 +20,14 @@ it('generates raw webp output', function (): void {
     expect(mb_substr((string) $output, 8, 4))->toBe('WEBP');
 });
 
+it('generates an opaque svg foreground by default', function (): void {
+    $svg = (string) resolve(QrCode::class)->format('svg')->generate('opacity check');
+
+    expect($svg)
+        ->toContain('fill="#000000"')
+        ->not->toContain('fill-opacity="0"');
+});
+
 it('uses imagick backend for pdf output', function (): void {
     $qrCode = resolve(QrCode::class)->format('pdf');
 
